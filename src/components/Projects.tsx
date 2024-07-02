@@ -39,6 +39,12 @@ const projects: Project[] = [
     link: "https://github.com/shigureeeeeeeeee/TodoApp",
     gradient: "from-cyan-500 via-blue-500 to-purple-500",
   },
+  {
+    title: "情報抽出を行う機械学習モデル",
+    description: "講義の一環で作成中。レビューからユーザーが購買行動の意思決定に利用する情報抽出を行う。",
+    link: "https://github.com/shigureeeeeeeeee/-A-machine-learning-model-for-extracting-information-from-reviews",
+    gradient: "from-green-500 via-teal-500 to-blue-500"
+  }
 ];
 
 const ProjectPin: React.FC<{ project: Project }> = ({ project }) => {

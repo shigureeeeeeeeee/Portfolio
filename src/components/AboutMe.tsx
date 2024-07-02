@@ -50,15 +50,11 @@ const AboutMe: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <p className="text-gray-300 mb-4 text-lg">
-              Hello! I'm shigure, a passionate developer based in [Your
-              Location]. With [X] years of experience in web development, I
-              specialize in creating robust and scalable solutions using modern
-              technologies.
+                はじめまして、立石達人と申します。現在、公立はこだて未来大学のシステム情報科学部 複雑系知能学科 知能システムコースに在籍している大学3年生です。Web開発や機械学習、LLMなどの技術に強い興味を持ち、日々新しい技術の勉強に励んでいます。
+                
             </p>
             <p className="text-gray-300 mb-6 text-lg">
-              My journey in tech began [Brief background]. I'm driven by the
-              desire to build innovative solutions that make a real impact on
-              people's lives and businesses.
+
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
