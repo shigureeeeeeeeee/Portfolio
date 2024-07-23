@@ -1,104 +1,39 @@
-My Portfolio Website
-Overview
-This is my personal portfolio website, showcasing my skills, projects, and professional journey as a web developer. The site is designed to provide visitors with an engaging and informative experience, highlighting my expertise and accomplishments in the field of web development.
-Features
+ポートフォリオサイト
 
-Responsive design that works on desktop, tablet, and mobile devices
-Dynamic and interactive UI elements using animations and transitions
-Detailed "About Me" section with background information, skills, and interests
-Showcase of projects with detailed descriptions and links
-Skills section displaying proficiency levels
-Contact form for easy communication
-Newsletter subscription functionality
-Dark mode support
+## 概要
 
-Technologies Used
+このリポジトリは、私の個人ポートフォリオウェブサイトのソースコードを含んでいます。このサイトは、私のスキル、プロジェクト、経歴を紹介し、Web開発者としての専門性を示すことを目的としています。
 
-React.js
-Next.js
-TypeScript
-Tailwind CSS
-Framer Motion for animations
-React Icons
-Vercel for deployment
+実際のサイトは[こちら](https://portfolio-plum-phi-54.vercel.app)で公開されています。
 
-Getting Started
-Prerequisites
+## 特徴
 
-Node.js (v14 or later)
-npm or yarn
+- レスポンシブデザイン（デスクトップ、タブレット、モバイル対応）
+- アニメーションとトランジションを使用したインタラクティブなUI
+- 詳細な「About Me」セクション
+- プロジェクトのショーケース
+- スキルセクション（技術スタックの表示）
+- コンタクトフォーム
 
-Installation
+## 使用技術
 
-Clone the repository:
-Copygit clone https://github.com/yourusername/portfolio.git
+- React.js
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Framer Motion（アニメーション）
+- React Icons
 
-Navigate to the project directory:
-Copycd portfolio
+## カスタマイズ
 
-Install dependencies:
-Copynpm install
-or if you're using yarn:
-Copyyarn install
+このポートフォリオサイトを自分用にカスタマイズするには、以下のファイルを編集してください：
 
+- `src/components/AboutMe.tsx`: 自己紹介文を更新
+- `src/components/Projects.tsx`: プロジェクト情報を更新
+- `src/components/Skills.tsx`: スキルセットを更新
 
-Development
-To run the development server:
-Copynpm run dev
-or
-Copyyarn dev
-Open http://localhost:3000 in your browser to see the result.
-Building for Production
-To create a production build:
-Copynpm run build
-or
-Copyyarn build
-Deployment
-This project is set up to be easily deployed on Vercel. Simply connect your GitHub repository to Vercel, and it will automatically deploy your main branch.
-For other deployment options, you can run:
-Copynpm run build
-followed by:
-Copynpm start
-Project Structure
-Copyportfolio/
-│
-├── components/         # React components
-│   ├── About.tsx
-│   ├── Hero.tsx
-│   ├── Projects.tsx
-│   ├── Skills.tsx
-│   └── Footer.tsx
-│
-├── pages/              # Next.js pages
-│   ├── index.tsx
-│   ├── _app.tsx
-│   └── _document.tsx
-│
-├── public/             # Static files
-│   └── images/
-│
-├── styles/             # CSS files
-│   └── globals.css
-│
-├── utils/              # Utility functions
-│
-├── types/              # TypeScript type definitions
-│
-├── .gitignore
-├── next.config.js
-├── package.json
-├── README.md
-└── tsconfig.json
-Customization
-To customize this portfolio for your own use:
+また、`public/img/`ディレクトリ内の画像を自分の画像に置き換えてください。
 
-Update the personal information in components/About.tsx
-Modify the projects in components/Projects.tsx
-Adjust the skills in components/Skills.tsx
-Replace the images in the public/images/ directory with your own
-Update the content in components/Hero.tsx and components/Footer.tsx
+## デプロイ
 
-Contributing
-While this is a personal portfolio project, suggestions and feedback are always welcome. Please open an issue to discuss any changes you'd like to propose.
-License
-This project is open source and available under the MIT License.
+このプロジェクトは現在[Vercel](https://portfolio-plum-phi-54.vercel.app)にデプロイされています。mainブランチにプッシュすると、自動的にデプロイが行われます。
