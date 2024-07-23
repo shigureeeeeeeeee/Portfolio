@@ -62,10 +62,10 @@ export const Skills: React.FC = () => {
   return (
     <section 
       ref={ref} 
-      className="relative py-20 bg-black" 
+      className="relative py-20 bg-gradient-to-b from-gray-800 via-gray-900 to-black" 
       id="skills"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/5 via-purple-900/5 to-gray-900/5 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 via-blue-900/5 to-transparent pointer-events-none"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.h2 

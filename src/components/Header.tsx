@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
+import { useTheme } from "../hooks/useTheme";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,40 +41,100 @@ const Header: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+    setIsMenuOpen(false);
   };
 
+  const menuItems = [
+    { id: "home", label: "ホーム" },
+    { id: "about", label: "自己紹介" },
+    { id: "skills", label: "スキル" },
+    { id: "projects", label: "プロジェクト" },
+    { id: "contact", label: "お問い合わせ" },
+  ];
+
+  
   return (
-    <motion.header
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-gray-900/80 backdrop-blur-sm" : "bg-transparent"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+        isScrolled ? "bg-gray-900/80 backdrop-blur-sm shadow-md" : "bg-transparent"
+      } text-white`}
     >
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-1 bg-purple-500"
+        style={{ scaleX }}
+      />
       <nav className="container mx-auto px-6 py-4">
-        <ul className="flex justify-center space-x-8">
-          {[
-            { id: "home", label: "Home" },
-            { id: "about", label: "About Me" },
-            { id: "skills", label: "Tech Stack" },
-            { id: "projects", label: "My Projects" },
-            { id: "contact", label: "Contact" },
-          ].map((item) => (
-            <li key={item.id}>
-              <button
+        <div className="flex justify-between items-center">
+          <motion.h1
+            className="text-2xl font-bold text-purple-400"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            shigure
+          </motion.h1>
+          <div className="hidden md:flex space-x-8">
+            {menuItems.map((item) => (
+              <motion.button
+                key={item.id}
                 onClick={() => scrollTo(item.id)}
-                className={`text-white hover:text-purple-300 transition-colors ${
-                  activeSection === item.id ? "text-purple-300 font-bold" : ""
+                className={`text-lg hover:text-purple-400 transition-colors ${
+                  activeSection === item.id ? "text-purple-400 font-bold" : ""
                 }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 {item.label}
-              </button>
-            </li>
-          ))}
-        </ul>
+              </motion.button>
+            ))}
+          </div>
+          <div className="flex items-center space-x-4">
+            <motion.button
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-gray-800 text-purple-400"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            >
+              {theme === "dark" ? <FaSun /> : <FaMoon />}
+            </motion.button>
+            <div className="md:hidden">
+              <motion.button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-2xl text-purple-400"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? <FaTimes /> : <FaBars />}
+              </motion.button>
+            </div>
+          </div>
+        </div>
       </nav>
-    </motion.header>
+      {isMenuOpen && (
+        <motion.div
+          className="md:hidden bg-gray-900 shadow-lg"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          {menuItems.map((item) => (
+            <motion.button
+              key={item.id}
+              onClick={() => scrollTo(item.id)}
+              className={`block w-full py-2 px-4 text-left text-lg hover:bg-gray-800 transition-colors ${
+                activeSection === item.id ? "bg-gray-800 text-purple-400 font-bold" : ""
+              }`}
+              whileHover={{ x: 10 }}
+            >
+              {item.label}
+            </motion.button>
+          ))}
+        </motion.div>
+      )}
+    </header>
   );
 };
 

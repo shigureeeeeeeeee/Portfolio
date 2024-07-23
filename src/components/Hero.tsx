@@ -1,63 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { FaTwitter, FaGithub } from "react-icons/fa";
 import Header from "./Header";
-
-const ParticleAnimation = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles: {
-      x: number;
-      y: number;
-      radius: number;
-      vx: number;
-      vy: number;
-    }[] = [];
-
-    for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 2 + 1,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-      });
-    }
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-        ctx.fill();
-      });
-    };
-
-    animate();
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0" />;
-};
 
 export const Hero = () => {
   const scrollToProjects = () => {
@@ -72,9 +16,9 @@ export const Hero = () => {
       <Header />
       <section
         id="home"
-        className="bg-black relative z-10 min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white"
       >
-        <ParticleAnimation />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/10 via-purple-900/10 to-transparent"></div>
         <motion.div
           className="text-center relative z-10"
           initial={{ opacity: 0 }}
@@ -83,22 +27,34 @@ export const Hero = () => {
         >
           <motion.div
             className="mb-8 relative"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-              delay: 0.3,
-            }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="absolute inset-0 bg-purple-500 rounded-full filter blur-md animate-pulse"></div>
-            <Image
+            <motion.div
+              className="absolute inset-0 bg-purple-500 rounded-full filter blur-xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+              style={{
+                top: '0%',
+                left: '25%',
+                width: '50%',
+                height: '100%',
+              }}
+            />
+            <motion.img
               src="/img/icon.jpg"
               alt="shigure"
-              width={150}
-              height={150}
-              className="rounded-full border-4 border-purple-500 mx-auto relative z-10"
+              className="w-32 h-32 rounded-full border-4 border-purple-500 mx-auto relative z-10"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.5 }}
             />
           </motion.div>
           <motion.h1
@@ -124,7 +80,9 @@ export const Hero = () => {
                 repeat: Infinity,
                 repeatType: "reverse",
               }}
-            ></motion.span>
+            >
+              Web Developer | AI Enthusiast | Student
+            </motion.span>
           </motion.div>
           <motion.div
             className="flex justify-center space-x-4 mb-8"

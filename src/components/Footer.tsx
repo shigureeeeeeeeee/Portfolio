@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "../hooks/useInView";
+import { motion, useInView } from "framer-motion";
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const [copied, setCopied] = useState(false);
-  const email = "b1022150@gmail.com";
+  const [message, setMessage] = useState("");
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { threshold: 0.1 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const email = "b1022150@gmail.com";
 
   const copyEmail = async () => {
     try {
@@ -15,46 +16,108 @@ const Footer: React.FC = () => {
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy email: ", err);
-      alert("Failed to copy email. Please try again.");
+      alert("メールアドレスのコピーに失敗しました。もう一度お試しください。");
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // ここにメッセージ送信のロジックを実装
+    console.log("Sent message:", message);
+    setMessage("");
+    alert("メッセージが送信されました。ありがとうございます！");
+  };
+
+  const socialLinks = [
+    { icon: <FaGithub />, url: "https://github.com/yourusername", label: "GitHub" },
+    { icon: <FaLinkedin />, url: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
+    { icon: <FaTwitter />, url: "https://twitter.com/yourusername", label: "Twitter" },
+  ];
+
   return (
-    <footer ref={ref} className="py-12 bg-glay" id="contact">
+    <footer ref={ref} className="py-16 bg-gray-900 text-white" id="contact">
       <div className="container mx-auto px-4">
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.5, staggerChildren: 0.1 }}
         >
-          <h2 className="text-2xl font-bold text-purple-300 mb-4">
-            Contact Me
-          </h2>
-          <div className="relative inline-block">
-            <motion.button
-              onClick={copyEmail}
-              className={`bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300 ${
-                copied ? "bg-green-600 hover:bg-green-700" : ""
-              }`}
+          <div>
+            <h2 className="text-3xl font-bold text-purple-400 mb-6">お問い合わせ</h2>
+            <motion.div
+              className="flex items-center mb-4"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {copied ? "Copied!" : "Copy Email"}
-            </motion.button>
-            {copied && (
-              <motion.span
-                className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-2 py-1 rounded text-sm"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
+              <FaEnvelope className="text-purple-400 mr-2" />
+              <button
+                onClick={copyEmail}
+                className="text-lg hover:text-purple-400 transition-colors"
               >
-                Email copied!
-              </motion.span>
+                {email}
+              </button>
+            </motion.div>
+            {copied && (
+              <motion.p
+                className="text-green-400"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                メールアドレスをコピーしました！
+              </motion.p>
             )}
           </div>
-          <p className="text-gray-400 mt-8">
-            &copy; 2024 shigure. All rights reserved.
+          <div>
+            <h2 className="text-3xl font-bold text-purple-400 mb-6">フォローする</h2>
+            <div className="flex space-x-4">
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={index}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl hover:text-purple-400 transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </motion.a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold text-purple-400 mb-6">メッセージを送る</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="メッセージを入力してください"
+                className="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:border-purple-400 focus:outline-none"
+                rows={4}
+                required
+              />
+              <motion.button
+                type="submit"
+                className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                送信
+              </motion.button>
+            </form>
+          </div>
+        </motion.div>
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          <p className="text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} shigure. All rights reserved.
           </p>
         </motion.div>
       </div>

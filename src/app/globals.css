@@ -3,110 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 17, 24, 39;
-  --background-end-rgb: 31, 41, 55;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom,
-    rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
-  );
-  height: 100%;
-  overflow: auto;
-}
-
-.bg-gradient-custom {
-  background-image: linear-gradient(to bottom, #111827, #1f2937);
-}
-
-.text-gradient {
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-html {
-  scroll-behavior: smooth;
-  height: 100%;
-  overflow: auto;
-}
-
-@keyframes jumbo {
-  from {
-    background-position: 50% 50%, 50% 50%;
+    --foreground-rgb: 240, 240, 240;
+    --background-start-rgb: 10, 10, 10;
+    --background-end-rgb: 20, 20, 20;
+    --accent-gold: 212, 175, 55;
   }
-  to {
-    background-position: 350% 50%, 350% 50%;
-  }
-}
-
-.jumbo {
-  --stripesDark: repeating-linear-gradient(
-    100deg,
-    #000 0%,
-    #000 7%,
-    transparent 10%,
-    transparent 12%,
-    #000 16%
-  );
-  --stripesLight: repeating-linear-gradient(
-    100deg,
-    #fff 0%,
-    #fff 7%,
-    transparent 10%,
-    transparent 12%,
-    #fff 16%
-  );
-  --rainbow: repeating-linear-gradient(
-    100deg,
-    #60a5fa 10%,
-    #e879f9 15%,
-    #60a5fa 20%,
-    #5eead4 25%,
-    #60a5fa 30%
-  );
-  background-image: var(--stripesDark), var(--rainbow);
-  background-size: 300%, 200%;
-  background-position: 50% 50%, 50% 50%;
-
-  filter: blur(10px) opacity(50%);
-  mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
-
-  animation: jumbo 60s linear infinite;
-}
-
-.dark .jumbo {
-  background-image: var(--stripesLight), var(--rainbow);
-  filter: blur(10px) opacity(30%);
-  mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
-}
-
-@layer utilities {
-  .gradient-overlay {
-    background: radial-gradient(
-      circle at top center,
-      rgba(126, 34, 206, 0.3),
-      rgba(37, 99, 235, 0.3) 50%,
-      transparent 100%
+  
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
     );
   }
-}
-
-.section-transition {
-  position: relative;
-}
-
-.section-transition::before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.05));
-  pointer-events: none;
-}
+  
+  .text-gradient {
+    background: linear-gradient(45deg, #d4af37, #f0f0f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }

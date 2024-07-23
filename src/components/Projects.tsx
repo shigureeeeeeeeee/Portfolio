@@ -108,8 +108,8 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-20 bg-black" id="projects">
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/5 via-purple-900/5 to-gray-900/5 pointer-events-none"></div>
+    <section ref={ref} className="relative py-20 bg-gradient-to-b from-black via-gray-900 to-gray-800" id="projects">
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-purple-900/5 to-transparent pointer-events-none"></div>
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* 星のアニメーションを実装する場所 */}
@@ -142,4 +142,4 @@ export const Projects: React.FC = () => {
   );
 };
 
-export default Projects;
+export default Projects;;

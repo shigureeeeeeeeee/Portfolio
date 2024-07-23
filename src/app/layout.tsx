@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Playfair_Display, Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from '../components/ThemeContext';
 
-const inter = Inter({ subsets: ["latin"] });
+const playfair = Playfair_Display({ subsets: ["latin"] });
+const roboto = Roboto({ weight: ['400', '700'], subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "Your Portfolio",
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ThemeProvider>
-        <body className={`${inter.className} transition-colors duration-300`}>
+        <body className={`${playfair.className} ${roboto.className} transition-colors duration-300`}>
           {children}
         </body>
       </ThemeProvider>
