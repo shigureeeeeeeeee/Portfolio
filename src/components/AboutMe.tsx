@@ -1,20 +1,62 @@
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "../hooks/useInView";
-import Image from "next/image";
-import { FaCode, FaLaptopCode, FaBookReader } from "react-icons/fa";
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from '../hooks/useInView';
+import Image from 'next/image';
+import { FaCode, FaLaptopCode, FaBookReader, FaGraduationCap, FaCoffee, FaUniversity, FaAward, FaProjectDiagram } from 'react-icons/fa';
+
+type TabId = 'profile' | 'education' | 'achievements' | 'interests';
+
+type TabContent = {
+  [key in TabId]: JSX.Element;
+};
 
 const AboutMe: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { threshold: 0.1 });
+  const [activeTab, setActiveTab] = useState<TabId>('profile');
+
+  const tabs: { id: TabId; label: string; icon: JSX.Element }[] = [
+    { id: 'profile', label: 'プロフィール', icon: <FaGraduationCap /> },
+    { id: 'education', label: '学歴', icon: <FaUniversity /> },
+    { id: 'achievements', label: '実績', icon: <FaAward /> },
+    { id: 'interests', label: '興味分野', icon: <FaProjectDiagram /> },
+  ];
+
+  const tabContent: TabContent = {
+    profile: (
+      <>
+        <p className="text-gray-300 mb-4">
+        私は情報系の大学生で個人開発としてWeb開発、大学のプロジェクトでAI開発を行っています。意欲的に新しい技術を学び様々なものを創作しています。
+        </p>
+        <p className="text-gray-300 mb-4">
+          大学では、アルゴリズムやデータ構造、機械学習の基礎を学んでいます。授業外では、React、Next.js、TypeScriptを使用したウェブアプリケーション開発に取り組んでいます。また、PythonとTensorFlowを使用した機械学習プロジェクトにも挑戦しています。
+        </p>
+      </>
+    ),
+    education: (
+      <ul className="list-disc list-inside text-gray-300 space-y-2">
+        <li>公立はこだて未来大学 システム情報科学部 複雑系知能学科 在学中</li>
+        <li>GPA: 3.8/4.0</li>
+      </ul>
+    ),
+    achievements: (
+      <ul className="list-disc list-inside text-gray-300 space-y-2">
+        <li>AtCoder 茶色</li>
+        <li>TOEIC スコア 645</li>
+      </ul>
+    ),
+    interests: (
+      <ul className="list-disc list-inside text-gray-300 space-y-2">
+        <li>ウェブアプリケーション開発: React, Next.js, TypeScript</li>
+        <li>機械学習と深層学習: TensorFlow, PyTorch</li>
+        <li>クラウドコンピューティング: AWS, Google Cloud Platform</li>
+      </ul>
+    ),
+  };
 
   return (
     <section ref={ref} className="relative py-20 bg-gradient-to-b from-black via-gray-900 to-gray-800" id="about">
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-purple-900/5 to-transparent pointer-events-none"></div>
-
-
-      <div className="absolute inset-0 overflow-hidden pointer-events-none"></div>
-
       <div className="container mx-auto px-4 relative z-10">
         <motion.h2
           className="text-4xl font-bold text-center text-purple-300 mb-12"
@@ -27,7 +69,7 @@ const AboutMe: React.FC = () => {
 
         <div className="flex flex-col lg:flex-row items-center justify-between">
           <motion.div
-            className="lg:w-2/5 mb-8 lg:mb-0"
+            className="lg:w-1/3 mb-8 lg:mb-0"
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -45,32 +87,43 @@ const AboutMe: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="lg:w-3/5 lg:pl-12"
+            className="lg:w-2/3 text-center lg:text-left"
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <p className="text-gray-300 mb-4 text-lg">
-                はじめまして、立石達人と申します。現在、公立はこだて未来大学のシステム情報科学部 複雑系知能学科 知能システムコースに在籍している大学3年生です。Web開発や機械学習、LLMなどの技術に強い興味を持ち、日々新しい技術の勉強に励んでいます。
-                
-            </p>
-            <p className="text-gray-300 mb-6 text-lg">
+            <h3 className="text-4xl font-semibold text-purple-300 mb-4">Hello!</h3>
+            
+            <div className="flex justify-center lg:justify-start space-x-4 mb-6">
+              {tabs.map((tab) => (
+                <motion.button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center px-4 py-2 rounded-full ${
+                    activeTab === tab.id ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {tab.icon}
+                  <span className="ml-2">{tab.label}</span>
+                </motion.button>
+              ))}
+            </div>
 
-            </p>
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {tabContent[activeTab]}
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="flex items-center">
-                <FaCode className="text-purple-400 text-2xl mr-2" />
-                <span className="text-gray-300">Clean Code</span>
-              </div>
-              <div className="flex items-center">
-                <FaLaptopCode className="text-blue-400 text-2xl mr-2" />
-                <span className="text-gray-300">Problem Solver</span>
-              </div>
-              <div className="flex items-center">
-                <FaBookReader className="text-green-400 text-2xl mr-2" />
-                <span className="text-gray-300">Continuous Learner</span>
-              </div>
+            <div className="mt-6 flex items-center justify-center lg:justify-start">
+              <FaCoffee className="text-purple-400 mr-2" />
+              <span className="text-gray-300">趣味：コーヒー、読書、料理、Web開発</span>
             </div>
           </motion.div>
         </div>

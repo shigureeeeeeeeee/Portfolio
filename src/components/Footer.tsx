@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // ここにメッセージ送信のロジックを実装
+    // メッセージ送信のロジックを実装する。
     console.log("Sent message:", message);
     setMessage("");
     alert("メッセージが送信されました。ありがとうございます！");
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
           transition={{ duration: 0.5, staggerChildren: 0.1 }}
         >
           <div>
-            <h2 className="text-3xl font-bold text-purple-400 mb-6">お問い合わせ</h2>
+            <h2 className="text-3xl font-bold text-purple-400 mb-6">Contact</h2>
             <motion.div
               className="flex items-center mb-4"
               whileHover={{ scale: 1.05 }}
@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
             )}
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-purple-400 mb-6">フォローする</h2>
+            <h2 className="text-3xl font-bold text-purple-400 mb-6">Follow</h2>
             <div className="flex space-x-4">
               {socialLinks.map((link, index) => (
                 <motion.a
@@ -89,12 +89,12 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-purple-400 mb-6">メッセージを送る</h2>
+            <h2 className="text-3xl font-bold text-purple-400 mb-6">Massage</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="メッセージを入力してください"
+                placeholder="メッセージを送る"
                 className="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:border-purple-400 focus:outline-none"
                 rows={4}
                 required

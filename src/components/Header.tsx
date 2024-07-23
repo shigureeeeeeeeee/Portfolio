@@ -45,11 +45,11 @@ const Header: React.FC = () => {
   };
 
   const menuItems = [
-    { id: "home", label: "ホーム" },
-    { id: "about", label: "自己紹介" },
-    { id: "skills", label: "スキル" },
-    { id: "projects", label: "プロジェクト" },
-    { id: "contact", label: "お問い合わせ" },
+    { id: "home", label: "Home" },
+    { id: "about", label: "About Me" },
+    { id: "skills", label: "Skills" },
+    { id: "projects", label: "Projects" },
+    { id: "contact", label: "Contact" },
   ];
 
   
@@ -64,14 +64,14 @@ const Header: React.FC = () => {
         style={{ scaleX }}
       />
       <nav className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-center items-center">
           <motion.h1
             className="text-2xl font-bold text-purple-400"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            shigure
+            
           </motion.h1>
           <div className="hidden md:flex space-x-8">
             {menuItems.map((item) => (
@@ -88,7 +88,7 @@ const Header: React.FC = () => {
               </motion.button>
             ))}
           </div>
-          <div className="flex items-center space-x-4">
+          {/* <div className="flex items-center space-x-4">
             <motion.button
               onClick={toggleTheme}
               className="p-2 rounded-full bg-gray-800 text-purple-400"
@@ -109,7 +109,7 @@ const Header: React.FC = () => {
                 {isMenuOpen ? <FaTimes /> : <FaBars />}
               </motion.button>
             </div>
-          </div>
+          </div> */}
         </div>
       </nav>
       {isMenuOpen && (
