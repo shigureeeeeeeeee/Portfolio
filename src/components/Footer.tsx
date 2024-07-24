@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
     // メッセージ送信のロジックを実装する。
     console.log("Sent message:", message);
     setMessage("");
-    alert("メッセージが送信されました。ありがとうございます！");
+    alert("現在作成中のため、メッセージ送信はできません。");
   };
 
   const socialLinks = [
