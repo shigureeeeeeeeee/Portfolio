@@ -1,14 +1,15 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp, FaMapMarkerAlt, FaPhone, FaHeart } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+
 
 const Footer: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [ref, inView] = useInView({ threshold: 0.1 });
   const controls = useAnimation();
-  const contactEmail = "b1022150@gmail.com";
+  const contactEmail = "contact@example.com";
 
   useEffect(() => {
     if (inView) {
@@ -27,10 +28,6 @@ const Footer: React.FC = () => {
     }
   }, [contactEmail]);
 
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
   const socialLinks = [
     { icon: <FaGithub />, url: "https://github.com/shigureeeeeeeeee", label: "GitHub" },
     { icon: <FaLinkedin />, url: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
@@ -48,7 +45,7 @@ const Footer: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 via-blue-900/5 to-transparent pointer-events-none"></div>
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-12"
           initial="hidden"
           animate={controls}
           variants={{
@@ -87,6 +84,20 @@ const Footer: React.FC = () => {
             </AnimatePresence>
           </motion.div>
           <motion.div variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}>
+            <h2 className="text-3xl font-bold text-purple-400 mb-6">Links</h2>
+            <nav>
+              <ul className="space-y-2">
+                {navItems.map((item) => (
+                  <li key={item}>
+                    <Link href={`#${item.toLowerCase()}`} className="hover:text-purple-400 transition-colors">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </motion.div>
+          <motion.div variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}>
             <h2 className="text-3xl font-bold text-purple-400 mb-6">Follow</h2>
             <div className="flex space-x-4">
               {socialLinks.map((link, index) => (
@@ -115,17 +126,6 @@ const Footer: React.FC = () => {
             hidden: { opacity: 0 }
           }}
         >
-          <nav className="mb-4">
-            <ul className="flex flex-wrap justify-center space-x-4">
-              {navItems.map((item) => (
-                <li key={item}>
-                  <Link href={`#${item.toLowerCase()}`} className="hover:text-purple-400 transition-colors">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
           <p className="text-sm text-gray-400">
             &copy; {new Date().getFullYear()} shigure. All rights reserved.
           </p>
@@ -136,15 +136,6 @@ const Footer: React.FC = () => {
           </motion.p>
         </motion.div>
       </div>
-      <motion.button
-        onClick={scrollToTop}
-        className="fixed bottom-8 right-8 bg-purple-600 text-white p-2 rounded-full shadow-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
-        whileHover={{ scale: 1.1, rotate: 360 }}
-        whileTap={{ scale: 0.9 }}
-        aria-label="Scroll to top"
-      >
-        <FaArrowUp />
-      </motion.button>
     </footer>
   );
 };

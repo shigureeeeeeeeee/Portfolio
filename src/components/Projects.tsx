@@ -30,7 +30,7 @@ const projects: Project[] = [
   {
     id: "2",
     title: "タスク管理アプリ",
-    description: "Todo、カレンダー、ポモドーロタイマー機能を備えている。",
+    description: "Todo、カレンダーアプリ、ポモドーロタイマー機能を備えている。",
     longDescription: "React、TypeScript、Tailwind CSSを使用して作成したタスク管理アプリです。ユーザーインターフェースはMaterial-UIを使用し、データストレージにはFirebaseを使用しています。",
     image: "/img/taskmanagement.png",
     technologies: ["React", "TypeScript", "Tailwind CSS", "Material-UI", "Firebase"],

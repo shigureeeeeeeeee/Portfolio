@@ -23,7 +23,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'React', icon: <FaReact />, level: 40, description: 'webアプリケーションの作成に使用。調べながら任意の処理を記述できるレベル。' },
       { name: 'Next.js', icon: <SiNextdotjs />, level: 40, description: 'webアプリケーションの作成に使用。調べながら任意の処理を記述できるレベル。' },
       { name: 'JavaScript', icon: <FaJs />, level: 40, description: 'webアプリケーションの作成に使用。調べながら任意の処理を記述できるレベル。' },
-      { name: 'TypeScript', icon: <SiTypescript />, level: 40, description: 'webアプリケーション���作成に使用。調べながら任意の処理を記述できるレベル。' },
+      { name: 'TypeScript', icon: <SiTypescript />, level: 40, description: 'webアプリケーション作成に使用。調べながら任意の処理を記述できるレベル。' },
       { name: 'Tailwind CSS', icon: <SiTailwindcss />, level: 35, description: 'UIデザインに使用。基本的なスタイリングができるレベル。' },
     ]
   },
