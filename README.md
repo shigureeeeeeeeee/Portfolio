@@ -1,6 +1,6 @@
 ## Overview
 This repository contains the source code for my personal portfolio website. The site is designed to showcase my skills, projects, and experience, demonstrating my expertise as a web developer.
-The live site is available [here](aboutme-shigure.vercel.app).
+The live site is available [here]([aboutme-shigure.vercel.app](https://aboutme-shigure.vercel.app)).
 
 ## Features
 - Responsive design (desktop, tablet, and mobile compatible)
