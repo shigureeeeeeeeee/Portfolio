@@ -1,27 +1,23 @@
-## 概要
+Overview
+This repository contains the source code for my personal portfolio website. The site is designed to showcase my skills, projects, and experience, demonstrating my expertise as a web developer.
+The live site is available here.
+Features
 
-このリポジトリは、私の個人ポートフォリオウェブサイトのソースコードを含んでいます。このサイトは、私のスキル、プロジェクト、経歴を紹介し、Web開発者としての専門性を示すことを目的としています。
+Responsive design (desktop, tablet, and mobile compatible)
+Interactive UI with animations and transitions
+Detailed "About Me" section
+Project showcase
+Skills section (displaying tech stack)
+Contact form
 
-実際のサイトは[こちら](https://portfolio-plum-phi-54.vercel.app)で公開されています。
+Technologies Used
 
-## 特徴
+React.js
+Next.js
+TypeScript
+Tailwind CSS
+Framer Motion (for animations)
+React Icons
 
-- レスポンシブデザイン（デスクトップ、タブレット、モバイル対応）
-- アニメーションとトランジションを使用したインタラクティブなUI
-- 詳細な「About Me」セクション
-- プロジェクトのショーケース
-- スキルセクション（技術スタックの表示）
-- コンタクトフォーム
-
-## 使用技術
-
-- React.js
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Framer Motion（アニメーション）
-- React Icons
-
-## デプロイ
-
-このプロジェクトは現在[Vercel](https://portfolio-plum-phi-54.vercel.app)にデプロイされています。mainブランチにプッシュすると、自動的にデプロイが行われます。
+Deployment
+This project is currently deployed on Vercel. Pushing to the main branch triggers automatic deployment.
