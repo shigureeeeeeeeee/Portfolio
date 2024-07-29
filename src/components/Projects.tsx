@@ -34,8 +34,8 @@ const projects: Project[] = [
     longDescription: "React、TypeScript、Tailwind CSSを使用して作成したタスク管理アプリです。ユーザーインターフェースはMaterial-UIを使用し、データストレージにはFirebaseを使用しています。",
     image: "/img/taskmanagement.png",
     technologies: ["React", "TypeScript", "Tailwind CSS", "Material-UI", "Firebase"],
-    link: "https://github.com/shigureeeeeeeeee/TodoApp",
-    github: "https://github.com/shigureeeeeeeeee/TodoApp",
+    link: "https://github.com/shigureeeeeeeeee/Productify",
+    github: "https://github.com/shigureeeeeeeeee/Productify",
   },
   {
     id: "3",

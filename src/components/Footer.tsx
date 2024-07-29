@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [ref, inView] = useInView({ threshold: 0.1 });
   const controls = useAnimation();
-  const contactEmail = "contact@example.com";
+  const contactEmail = "b1022150@fun.ac.jp";
 
   useEffect(() => {
     if (inView) {
@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
 
   const socialLinks = [
     { icon: <FaGithub />, url: "https://github.com/shigureeeeeeeeee", label: "GitHub" },
-    { icon: <FaLinkedin />, url: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
+    { icon: <FaLinkedin />, url: "https://www.linkedin.com/in/%E9%81%94%E4%BA%BA-%E7%AB%8B%E7%9F%B3-aaa63131b/", label: "LinkedIn" },
     { icon: <FaTwitter />, url: "https://twitter.com/shigure_FUN", label: "Twitter" },
   ];
 

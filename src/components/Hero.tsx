@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaTwitter, FaGithub } from "react-icons/fa";
+import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 import Header from "./Header";
 
 export const Hero = () => {
@@ -10,6 +10,12 @@ export const Hero = () => {
       projectsSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const socialLinks = [
+    { icon: <FaTwitter size={24} />, url: "https://x.com/shigure_FUN", label: "Twitter" },
+    { icon: <FaGithub size={24} />, url: "https://github.com/shigureeeeeeeeee", label: "GitHub" },
+    { icon: <FaLinkedin size={24} />, url: "https://www.linkedin.com/in/%E9%81%94%E4%BA%BA-%E7%AB%8B%E7%9F%B3-aaa63131b/", label: "LinkedIn" },
+  ];
 
   return (
     <>
@@ -90,26 +96,20 @@ export const Hero = () => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.5 }}
           >
-            <motion.a
-              href="https://x.com/shigure_FUN"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-purple-400 transition-colors"
-              whileHover={{ scale: 1.2, rotate: 360 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaTwitter size={24} />
-            </motion.a>
-            <motion.a
-              href="https://github.com/shigureeeeeeeeee"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-purple-400 transition-colors"
-              whileHover={{ scale: 1.2, rotate: 360 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaGithub size={24} />
-            </motion.a>
+            {socialLinks.map((link, index) => (
+              <motion.a
+                key={index}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-purple-400 transition-colors"
+                whileHover={{ scale: 1.2, rotate: 360 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={link.label}
+              >
+                {link.icon}
+              </motion.a>
+            ))}
           </motion.div>
           <motion.button
             onClick={scrollToProjects}
