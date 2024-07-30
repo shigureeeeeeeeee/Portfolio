@@ -168,7 +168,7 @@ export const Hero: React.FC = () => {
             className="px-8 py-3 bg-purple-600 text-white rounded-full font-semibold text-lg shadow-lg hover:bg-purple-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
             variants={itemVariants}
           >
-            {t("hero.viewWork")}
+            {t("ViewWork")}
           </motion.button>
         </motion.div>
       </section>

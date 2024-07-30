@@ -73,9 +73,10 @@ export const Projects: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="w-full"
             >
               <PinContainer title={project.title} href={project.link}>
-                <div className="flex flex-col p-4 tracking-tight text-slate-100/50 w-[20rem] h-[20rem]">
+                <div className="flex flex-col p-4 tracking-tight text-slate-100/50 w-full h-[20rem]">
                   <h3 className="text-base font-bold text-slate-100 mb-2">{project.title}</h3>
                   <p className="text-sm text-slate-300 mb-4">{project.description}</p>
                   <div className="flex-1 relative overflow-hidden rounded-lg">
