@@ -41,7 +41,7 @@ const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'Docker', icon: <FaDocker />, level: 30, description: '開発環境を構築する際に使用。基本的なCLI操作を行うことはできるが、DockerFileなどを空から書くのは苦戦するレベル。' },
       { name: 'Git', icon: <FaGitAlt />, level: 30, description: 'バージョン管理を行うのに使用。基本的な操作を行うことができるレベル。' },
-      { name: 'AWS', icon: <SiAmazonaws />, level: 20, description: 'EC2, S3などの基本的なサービスを使用できるレベル。' },
+      { name: 'Linux', icon: <FaServer />, level: 20, description: '基本的なコマンドラインの操作ができるレベル。' },
     ]
   },
 ];
