@@ -166,4 +166,4 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
     </div>
   );
 };
-export default Projects;
+export default ProjectModal;

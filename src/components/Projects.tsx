@@ -5,6 +5,7 @@ import { useInView } from "../hooks/useInView";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import Image from "next/image";
+import ProjectModal from "./ProjectModal";
 
 interface Project {
   id: string;
@@ -69,15 +70,18 @@ export const Projects: React.FC = () => {
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-4">
           {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} setSelectedProject={setSelectedProject} />
           ))}
         </div>
+        {selectedProject && (
+          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        )}
       </div>
     </section>
   );
 };
 
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Project) => void }> = ({ project, setSelectedProject }) => {
   return (
     <CardContainer className="inter-var">
       <CardBody className="bg-gray-800 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-full rounded-xl p-8 border">
@@ -108,12 +112,16 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             translateZ={20}
             as="button"
             className="px-4 py-2 rounded-xl bg-purple-600 text-white text-sm font-bold"
+            onClick={() => setSelectedProject(project)}
           >
             詳細を見る
           </CardItem>
           <CardItem
             translateZ={20}
-            as="button"
+            as="a"
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-2 rounded-xl bg-gray-700 text-white text-sm font-bold"
           >
             <FiGithub className="inline-block mr-2" />
