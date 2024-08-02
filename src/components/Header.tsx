@@ -19,20 +19,34 @@ const Header: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      const sections = ["home", "about", "skills", "projects", "contact"];
+      const sections = ["home", "about", "skills", "projects"];
       let current = "";
+
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const section of sections) {
         const element = document.getElementById(section);
-        if (element && window.scrollY >= element.offsetTop - 100) {
-          current = section;
+        if (element) {
+          const { top, bottom } = element.getBoundingClientRect();
+          const elementTop = top + window.scrollY;
+          const elementBottom = bottom + window.scrollY;
+
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            current = section;
+            break;
+          }
         }
+      }
+
+      if (!current && window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+        current = sections[sections.length - 1];
       }
 
       setActiveSection(current);
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // 初期状態を設定するために一度呼び出す
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -49,7 +63,6 @@ const Header: React.FC = () => {
     { id: "about", label: "About Me" },
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" },
   ];
 
   

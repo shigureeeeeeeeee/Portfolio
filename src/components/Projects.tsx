@@ -84,21 +84,23 @@ export const Projects: React.FC = () => {
 const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Project) => void }> = ({ project, setSelectedProject }) => {
   return (
     <CardContainer className="inter-var">
-      <CardBody className="bg-gray-800 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-full rounded-xl p-8 border">
-        <CardItem
-          translateZ="50"
-          className="text-2xl font-bold text-purple-300 mb-6"
-        >
-          {project.title}
-        </CardItem>
-        <CardItem
-          as="p"
-          translateZ="60"
-          className="text-gray-300 mb-6 text-sm"
-        >
-          {project.description}
-        </CardItem>
-        <CardItem translateZ="100" className="w-full mt-6">
+      <CardBody className="bg-gray-800 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-[500px] rounded-xl p-8 border flex flex-col justify-between">
+        <div>
+          <CardItem
+            translateZ="50"
+            className="text-2xl font-bold text-purple-300 mb-4"
+          >
+            {project.title}
+          </CardItem>
+          <CardItem
+            as="p"
+            translateZ="60"
+            className="text-gray-300 mb-4 text-sm"
+          >
+            {project.description}
+          </CardItem>
+        </div>
+        <CardItem translateZ="100" className="w-full mb-4">
           <Image
             src={project.image}
             height="200"
@@ -107,7 +109,7 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
             alt={project.title}
           />
         </CardItem>
-        <div className="flex justify-between items-center mt-8">
+        <div className="flex justify-between items-center">
           <CardItem
             translateZ={20}
             as="button"
