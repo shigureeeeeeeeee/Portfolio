@@ -100,14 +100,16 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
             {project.description}
           </CardItem>
         </div>
-        <CardItem translateZ="100" className="w-full mb-4">
-          <Image
-            src={project.image}
-            height="200"
-            width="300"
-            className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-            alt={project.title}
-          />
+        <CardItem translateZ="100" className="w-full mb-4 flex items-center justify-center">
+          <div className="w-full h-48 relative">
+            <Image
+              src={project.image}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-xl group-hover/card:shadow-xl"
+              alt={project.title}
+            />
+          </div>
         </CardItem>
         <div className="flex justify-between items-center">
           <CardItem
