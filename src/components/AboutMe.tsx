@@ -46,6 +46,7 @@ const AboutMe: React.FC = () => {
       <ul className="list-disc list-inside text-gray-300 space-y-2">
         <li>AtCoder 茶色</li>
         <li>TOEIC スコア 645</li>
+        <li>Paiza Sランク</li>
       </ul>
     ),
     interests: (
