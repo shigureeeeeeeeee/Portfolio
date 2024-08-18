@@ -41,13 +41,13 @@ const projects: Project[] = [
   },
   {
     id: "3",
-    title: "情報抽出を行う機械学習モデル",
-    description: "講義の一環で作成中。レビューからユーザーが購買行動の意思決定に利用する情報抽出を行う。",
-    longDescription: "Python、TensorFlowを使用して作成中の機械学習モデルです。自然言語処理技術を使用して、レビューから購買意思決定に影響する情報を抽出しています。",
-    image: "/img/mlmodel.jpg",
-    technologies: ["Python", "TensorFlow", "自然言語処理"],
-    link: "https://github.com/shigureeeeeeeeee/-A-machine-learning-model-for-extracting-information-from-reviews",
-    github: "https://github.com/shigureeeeeeeeee/-A-machine-learning-model-for-extracting-information-from-reviews",
+    title: "スケジュールジェネレーター",
+    description: "AIを活用して最適な日程を提案するスケジュール作成ツール",
+    longDescription: "Python、FastAPI、React、TypeScriptを使用して開発したAI駆動のスケジュール生成アプリケーションです。機械学習モデルを用いてユーザーの好みや制約を考慮し、最適なスケジュールを提案します。",
+    image: "/img/schedulegenerator.jpg",
+    technologies: ["Python", "FastAPI", "React", "TypeScript", "機械学習"],
+    link: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
+    github: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
   }
 ];
 

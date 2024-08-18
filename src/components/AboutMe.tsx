@@ -32,6 +32,9 @@ const AboutMe: React.FC = () => {
           大学では情報科学を専攻し、アルゴリズム、データ構造、機械学習の基礎を学んでいます。授業外では、React、Next.js、TypeScriptを用いたWebアプリケーション開発に取り組み、ユーザー体験の向上に力を入れています。また、PythonとTensorFlowを活用し、画像認識や自然言語処理などのAIプロジェクトにも挑戦しています。
         </p>
         <p className="text-gray-300 mb-4">
+          最近は、Pythonを使って日常生活を便利にするアプリケーションの開発にも取り組んでいます。例えば、自動化スクリプトやスケジュール自動生成アプリなど、実用的なソリューションの作成に挑戦しています。
+        </p>
+        <p className="text-gray-300 mb-4">
           技術の急速な進化に常に興味を持ち、新しい知識やスキルの習得に励んでいます。将来は、Web技術とAIを融合させた革新的なサービスを開発し、テクノロジーの力で社会課題の解決に貢献したいと考えています。
         </p>
       </>
@@ -45,8 +48,8 @@ const AboutMe: React.FC = () => {
     achievements: (
       <ul className="list-disc list-inside text-gray-300 space-y-2">
         <li>AtCoder 茶色</li>
-        <li>TOEIC スコア 645</li>
         <li>Paiza Sランク</li>
+        <li>TOEIC スコア 645</li>
       </ul>
     ),
     interests: (
@@ -127,7 +130,7 @@ const AboutMe: React.FC = () => {
 
             <div className="mt-6 flex items-center justify-center lg:justify-start">
               <FaCoffee className="text-purple-400 mr-2" />
-              <span className="text-gray-300">趣味：コーヒー、読書、料理、Web開発</span>
+              <span className="text-gray-300">趣味：コーヒー、読書、料理、Web開発、競技プログラミング</span>
             </div>
           </motion.div>
         </div>
