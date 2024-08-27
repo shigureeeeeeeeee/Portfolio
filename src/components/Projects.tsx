@@ -22,7 +22,7 @@ const projects: Project[] = [
   {
     id: "1",
     title: "ポートフォリオサイト",
-    description: "基本的な私の情報がわかるポートフォリオサイト",
+    description: "基本的な私の情報がわかるポートフォリオサイト。随時更新中",
     longDescription: "Next.js、TypeScript、Tailwind CSSを使用して作成した個人ポートフォリオサイトです。アニメーションにはFramer Motionを使用し、インタラクティブな要素を追加しています。",
     image: "/img/portfolio.jpg",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
@@ -31,13 +31,13 @@ const projects: Project[] = [
   },
   {
     id: "2",
-    title: "タスク管理アプリ",
-    description: "Todo、カレンダーアプリ、ポモドーロタイマー機能を備えている。",
+    title: "ブログ作成アプリ",
+    description: "ブログの作成、管理、閲覧、公開ができるSaaS風Webアプリケーション",
     longDescription: "React、TypeScript、Tailwind CSSを使用して作成したタスク管理アプリです。ユーザーインターフェースはMaterial-UIを使用し、データストレージにはFirebaseを使用しています。",
-    image: "/img/taskmanagement.png",
+    image: "/img/BrogCraft.png",
     technologies: ["React", "TypeScript", "Tailwind CSS", "Material-UI", "Firebase"],
-    link: "https://github.com/shigureeeeeeeeee/Productify",
-    github: "https://github.com/shigureeeeeeeeee/Productify",
+    link: "https://github.com/shigureeeeeeeeee/BlogCraft",
+    github: "https://github.com/shigureeeeeeeeee/BlogCraft",
   },
   {
     id: "3",
