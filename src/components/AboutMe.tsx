@@ -42,7 +42,7 @@ const AboutMe: React.FC = () => {
     education: (
       <ul className="list-disc list-inside text-gray-300 space-y-2">
         <li>公立はこだて未来大学 システム情報科学部 複雑系知能学科 在学中</li>
-        <li>GPA: 2.0/4.0</li>
+        <li>GPA: 2.14/4.0</li>
       </ul>
     ),
     achievements: (

@@ -18,8 +18,22 @@ export default function Home() {
         transition={{ duration: 0.5 }}
       >
         <div className="absolute inset-0 bg-gradient-radial from-blue-900/5 via-purple-900/5 to-transparent pointer-events-none"></div>
-        <Hero />
-        <AboutMe />
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <Hero />
+        </motion.div>
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <AboutMe />
+        </motion.div>
         <Skills />
         <Projects />
         <Footer />

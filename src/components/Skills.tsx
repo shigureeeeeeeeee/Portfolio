@@ -33,7 +33,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'Python', icon: <FaPython />, level: 50, description: '大学の講義で使用。pandas, numpy, matplotlibなどのライブラリを使用して簡単なデータ分析を行うことができるレベル。' },
       { name: 'C', icon: <SiC />, level: 20, description: '大学の講義で使用。基本的な文法やポインタの使い方がわかるレベル。' },
       { name: 'Java', icon: <FaJava />, level: 20, description: '大学の講義で使用。基本的な文法やオブジェクト指向がわかるレベル。' },
-      { name: 'SQL', icon: <FaDatabase />, level: 30, description: '基本的なクエリの作成ができるレベル。' },
+      { name: 'SQL', icon: <FaDatabase />, level: 30, description: '基��的なクエリの作成ができるレベル。' },
     ]
   },
   {
