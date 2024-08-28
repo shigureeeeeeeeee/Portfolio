@@ -3,18 +3,26 @@ import { motion } from 'framer-motion';
 import { useInView } from '../hooks/useInView';
 import Image from 'next/image';
 import { FaCode, FaLaptopCode, FaBookReader, FaGraduationCap, FaCoffee, FaUniversity, FaAward, FaProjectDiagram } from 'react-icons/fa';
+import { aboutMeContent } from '../data/aboutMe';
 
+// タブのIDを定義する型
 type TabId = 'profile' | 'education' | 'achievements' | 'interests';
 
+// タブの内容を定義する型
 type TabContent = {
   [key in TabId]: JSX.Element;
 };
 
+// AboutMeコンポーネントの定義
 const AboutMe: React.FC = () => {
+  // セクションの参照を作成
   const ref = useRef<HTMLDivElement>(null);
+  // セクションが表示されているかどうかを検出
   const isInView = useInView(ref, { threshold: 0.1 });
+  // アクティブなタブを管理するstate
   const [activeTab, setActiveTab] = useState<TabId>('profile');
 
+  // タブの定義
   const tabs: { id: TabId; label: string; icon: JSX.Element }[] = [
     { id: 'profile', label: 'プロフィール', icon: <FaGraduationCap /> },
     { id: 'education', label: '学歴', icon: <FaUniversity /> },
@@ -22,49 +30,45 @@ const AboutMe: React.FC = () => {
     { id: 'interests', label: '興味分野', icon: <FaProjectDiagram /> },
   ];
 
+  // タブの内容を定義
   const tabContent: TabContent = {
     profile: (
       <>
-        <p className="text-gray-300 mb-4">
-          はじめまして。公立はこだて未来大学の学生で、Web開発とAI技術に情熱を注いでいます。私の目標は、技術を通じて人々の生活を豊かにし、社会に貢献することです。
-        </p>
-        <p className="text-gray-300 mb-4">
-          大学では情報科学を専攻し、アルゴリズム、データ構造、機械学習の基礎を学んでいます。授業外では、React、Next.js、TypeScriptを用いたWebアプリケーション開発に取り組み、ユーザー体験の向上に力を入れています。また、PythonとTensorFlowを活用し、画像認識や自然言語処理などのAIプロジェクトにも挑戦しています。
-        </p>
-        <p className="text-gray-300 mb-4">
-          最近は、Pythonを使って日常生活を便利にするアプリケーションの開発にも取り組んでいます。例えば、自動化スクリプトやスケジュール自動生成アプリなど、実用的なソリューションの作成に挑戦しています。
-        </p>
-        <p className="text-gray-300 mb-4">
-          技術の急速な進化に常に興味を持ち、新しい知識やスキルの習得に励んでいます。将来は、Web技術とAIを融合させた革新的なサービスを開発し、テクノロジーの力で社会課題の解決に貢献したいと考えています。
-        </p>
+        {aboutMeContent.profile.paragraphs.map((paragraph, index) => (
+          <p key={index} className="text-gray-300 mb-4">{paragraph}</p>
+        ))}
       </>
     ),
     education: (
       <ul className="list-disc list-inside text-gray-300 space-y-2">
-        <li>公立はこだて未来大学 システム情報科学部 複雑系知能学科 在学中</li>
-        <li>GPA: 2.14/4.0</li>
+        {aboutMeContent.education.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
       </ul>
     ),
     achievements: (
       <ul className="list-disc list-inside text-gray-300 space-y-2">
-        <li>AtCoder 茶色</li>
-        <li>Paiza Sランク</li>
-        <li>TOEIC スコア 645</li>
+        {aboutMeContent.achievements.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
       </ul>
     ),
     interests: (
       <ul className="list-disc list-inside text-gray-300 space-y-2">
-        <li>ウェブアプリケーション開発: React, Next.js, TypeScript</li>
-        <li>機械学習と深層学習: TensorFlow, PyTorch</li>
-        <li>クラウドコンピューティング: Vercel, Google Cloud Platform</li>
+        {aboutMeContent.interests.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
       </ul>
     ),
   };
 
   return (
+    // AboutMeセクション
     <section ref={ref} className="relative py-20 bg-gradient-to-b from-black via-gray-900 to-gray-800" id="about">
+      {/* 背景のグラデーション効果 */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-purple-900/5 to-transparent pointer-events-none"></div>
       <div className="container mx-auto px-4 relative z-10">
+        {/* セクションタイトル */}
         <motion.h2
           className="text-4xl font-bold text-center text-purple-300 mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -75,6 +79,7 @@ const AboutMe: React.FC = () => {
         </motion.h2>
 
         <div className="flex flex-col lg:flex-row items-center justify-between">
+          {/* プロフィール画像 */}
           <motion.div
             className="lg:w-1/3 mb-8 lg:mb-0"
             initial={{ opacity: 0, x: -50 }}
@@ -82,7 +87,9 @@ const AboutMe: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="relative w-64 h-64 mx-auto">
+              {/* 画像の背景エフェクト */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-blue-500/30 rounded-full opacity-75 blur-2xl"></div>
+              {/* プロフィール画像 */}
               <Image
                 src="/img/icon.jpg"
                 alt="shigure"
@@ -93,6 +100,7 @@ const AboutMe: React.FC = () => {
             </div>
           </motion.div>
 
+          {/* プロフィール情報 */}
           <motion.div
             className="lg:w-2/3 text-center lg:text-left"
             initial={{ opacity: 0, x: 50 }}
@@ -101,6 +109,7 @@ const AboutMe: React.FC = () => {
           >
             <h3 className="text-4xl font-semibold text-purple-300 mb-4">Hello!</h3>
             
+            {/* タブボタン */}
             <div className="flex justify-center lg:justify-start space-x-4 mb-6">
               {tabs.map((tab) => (
                 <motion.button
@@ -118,6 +127,7 @@ const AboutMe: React.FC = () => {
               ))}
             </div>
 
+            {/* タブの内容 */}
             <motion.div
               key={activeTab}
               initial={{ opacity: 0, y: 20 }}
@@ -128,9 +138,10 @@ const AboutMe: React.FC = () => {
               {tabContent[activeTab]}
             </motion.div>
 
+            {/* 趣味セクション */}
             <div className="mt-6 flex items-center justify-center lg:justify-start">
               <FaCoffee className="text-purple-400 mr-2" />
-              <span className="text-gray-300">趣味：コーヒー、読書、料理、Web開発、競技プログラミング</span>
+              <span className="text-gray-300">趣味：{aboutMeContent.hobbies}</span>
             </div>
           </motion.div>
         </div>

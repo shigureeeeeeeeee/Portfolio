@@ -6,53 +6,9 @@ import { useInView } from "../hooks/useInView";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import Image from "next/image";
-import ProjectModal from "./ProjectModal";
+import { projects, Project } from '../data/projects';
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  longDescription: string;
-  image: string;
-  technologies: string[];
-  link: string;
-  github: string;
-}
-
-const projects: Project[] = [
-  {
-    id: "1",
-    title: "ポートフォリオサイト",
-    description: "Next.js、TypeScript、Tailwind CSSを駆使した、インタラクティブで魅力的な個人ポートフォリオサイト。Framer Motionによるスムーズなアニメーションを実装。",
-    longDescription: "Next.js、TypeScript、Tailwind CSSを使用して作成した個人ポートフォリオサイトです。アニメーションにはFramer Motionを使用し、インタラクティブな要素を追加しています。レスポンシブデザインにより、様々なデバイスで最適な表示を実現しています。",
-    image: "/img/portfolio.jpg",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    link: "https://portfolio-plum-phi-54.vercel.app",
-    github: "https://github.com/shigureeeeeeeeee/Portfolio",
-  },
-  {
-    id: "2",
-    title: "ブログ作成アプリ",
-    description: "React、TypeScript、Supabase を活用した、フル機能のブログ管理システム。Markdownエディタ、タグ付け、カテゴリ分類機能を搭載。",
-    longDescription: "React、TypeScript、Tailwind CSSを使用して開発したブログ管理アプリケーションです。Markdownエディタを実装し、記事の作成と編集を容易にしています。Firebaseを利用してユーザー認証とデータの永続化を実現。タグ付けやカテゴリ分類機能により、効率的な記事管理が可能です。",
-    image: "/img/BrogCraft.png",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Firebase", "Markdown"],
-    link: "https://github.com/shigureeeeeeeeee/BlogCraft",
-    github: "https://github.com/shigureeeeeeeeee/BlogCraft",
-  },
-  {
-    id: "3",
-    title: "スケジュールジェネレーター",
-    description: "Python、Gemini1.5 Flash APIを組み合わせた、AI駆動のスケジュール最適化ツール。",
-    longDescription: "Python、FastAPI、React、TypeScriptを使用して開発したAI駆動のスケジュール生成アプリケーションです。機械学習モデルを用いてユーザーの好みや制約を考慮し、最適なスケジュールを提案します。直感的なUIにより、ユーザーは簡単に予定を入力し、AIが生成したスケジュールを確認・調整できます。",
-    image: "/img/schedulegenerator.jpg",
-    technologies: ["Python", "FastAPI", "React", "TypeScript", "機械学習"],
-    link: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
-    github: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
-  }
-];
-
-export const Projects: React.FC = () => {
+const Projects: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { threshold: 0.1 });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -70,8 +26,15 @@ export const Projects: React.FC = () => {
           Projects
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-4">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} setSelectedProject={setSelectedProject} />
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <ProjectCard project={project} setSelectedProject={setSelectedProject} />
+            </motion.div>
           ))}
         </div>
         {selectedProject && (
@@ -135,6 +98,53 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
         </div>
       </CardBody>
     </CardContainer>
+  );
+};
+
+const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ project, onClose }) => {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-800 p-8 rounded-lg max-w-2xl w-full">
+        <h2 className="text-2xl font-bold text-purple-300 mb-4">{project.title}</h2>
+        <p className="text-gray-300 mb-4">{project.longDescription}</p>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold text-purple-300 mb-2">使用技術：</h3>
+          <div className="flex flex-wrap gap-2">
+            {project.technologies.map((tech, index) => (
+              <span key={index} className="bg-gray-700 text-white px-2 py-1 rounded-full text-sm">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-end space-x-4">
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            <FiExternalLink className="mr-2" />
+            サイトを見る
+          </a>
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+          >
+            <FiGithub className="mr-2" />
+            GitHub
+          </a>
+          <button
+            onClick={onClose}
+            className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition-colors"
+          >
+            閉じる
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

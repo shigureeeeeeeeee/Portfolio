@@ -1,26 +1,34 @@
+// 必要なモジュールとコンポーネントをインポート
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp, FaHeart } from "react-icons/fa";
 import Link from "next/link";
 
-
+// Footerコンポーネントの定義
 const Footer: React.FC = () => {
+  // メールアドレスがコピーされたかどうかを管理するstate
   const [copied, setCopied] = useState(false);
+  // 要素が画面内に表示されているかを検出するフック
   const [ref, inView] = useInView({ threshold: 0.1 });
+  // アニメーションを制御するフック
   const controls = useAnimation();
+  // 連絡先メールアドレス
   const contactEmail = "b1022150@fun.ac.jp";
 
+  // 要素が画面内に表示されたらアニメーションを開始
   useEffect(() => {
     if (inView) {
       controls.start("visible");
     }
   }, [controls, inView]);
 
+  // メールアドレスをクリップボードにコピーする関数
   const copyEmail = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(contactEmail);
       setCopied(true);
+      // 2秒後にコピー成功メッセージを非表示にする
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy email: ", err);
@@ -28,22 +36,28 @@ const Footer: React.FC = () => {
     }
   }, [contactEmail]);
 
+  // ソーシャルリンクの配列
   const socialLinks = [
     { icon: <FaGithub />, url: "https://github.com/shigureeeeeeeeee", label: "GitHub" },
     { icon: <FaLinkedin />, url: "https://www.linkedin.com/in/%E9%81%94%E4%BA%BA-%E7%AB%8B%E7%9F%B3-aaa63131b/", label: "LinkedIn" },
     { icon: <FaTwitter />, url: "https://twitter.com/shigure_FUN", label: "Twitter" },
   ];
 
+  // 連絡先情報の配列
   const contactInfo = [
     { icon: <FaEnvelope />, text: contactEmail, action: copyEmail, label: "Email" },
   ];
 
+  // ナビゲーション項目の配列
   const navItems = ["Home", "About", "Skills", "Projects"];
 
   return (
+    // フッターセクション全体のコンテナ
     <footer ref={ref} className="relative py-16 bg-gradient-to-b from-gray-900 to-black text-white" id="contact">
+      {/* 背景のグラデーション効果 */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 via-blue-900/5 to-transparent pointer-events-none"></div>
       <div className="container mx-auto px-4 relative z-10">
+        {/* フッターコンテンツのグリッド */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-12"
           initial="hidden"
@@ -53,6 +67,7 @@ const Footer: React.FC = () => {
             hidden: { opacity: 0, y: 50 }
           }}
         >
+          {/* 連絡先情報 */}
           <motion.div variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}>
             <h2 className="text-3xl font-bold text-purple-400 mb-6">Contact</h2>
             {contactInfo.map((info, index) => (
@@ -69,6 +84,7 @@ const Footer: React.FC = () => {
                 </span>
               </motion.div>
             ))}
+            {/* メールアドレスコピー成功時のメッセージ */}
             <AnimatePresence>
               {copied && (
                 <motion.p
@@ -83,6 +99,7 @@ const Footer: React.FC = () => {
               )}
             </AnimatePresence>
           </motion.div>
+          {/* ナビゲーションリンク */}
           <motion.div variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}>
             <h2 className="text-3xl font-bold text-purple-400 mb-6">Links</h2>
             <nav>
@@ -97,6 +114,7 @@ const Footer: React.FC = () => {
               </ul>
             </nav>
           </motion.div>
+          {/* ソーシャルリンク */}
           <motion.div variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}>
             <h2 className="text-3xl font-bold text-purple-400 mb-6">Follow</h2>
             <div className="flex space-x-4">
@@ -117,6 +135,7 @@ const Footer: React.FC = () => {
             </div>
           </motion.div>
         </motion.div>
+        {/* コピーライト情報 */}
         <motion.div
           className="text-center mt-12"
           initial={{ opacity: 0 }}

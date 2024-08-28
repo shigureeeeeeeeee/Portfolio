@@ -1,56 +1,32 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from '../hooks/useInView';
-import { FaPython, FaReact, FaJs, FaJava, FaDocker, FaGitAlt, FaDatabase, FaServer } from 'react-icons/fa';
-import { SiNextdotjs, SiTypescript, SiC, SiTailwindcss, SiAmazonaws, SiGooglecloud } from 'react-icons/si';
+import { IconType } from 'react-icons';
+import { skillCategories } from '../data/skills';
 
+// スキルの型定義
 interface Skill {
   name: string;
-  icon: React.ReactElement;
+  icon: IconType;
   level: number;
   description: string;
 }
 
+// スキルカテゴリーの型定義
 interface SkillCategory {
   name: string;
   skills: Skill[];
 }
 
-const skillCategories: SkillCategory[] = [
-  {
-    name: "フロントエンド",
-    skills: [
-      { name: 'React', icon: <FaReact />, level: 40, description: 'webアプリケーションの作成に使用。調べながら任意の処理を記述できるレベル。' },
-      { name: 'Next.js', icon: <SiNextdotjs />, level: 40, description: 'webアプリケーションの作成に使用。調べながら任意の処理を記述できるレベル。' },
-      { name: 'JavaScript', icon: <FaJs />, level: 40, description: 'webアプリケーションの作成に使用。調べながら任意の処理を記述できるレベル。' },
-      { name: 'TypeScript', icon: <SiTypescript />, level: 40, description: 'webアプリケーション作成に使用。調べながら任意の処理を記述できるレベル。' },
-      { name: 'Tailwind CSS', icon: <SiTailwindcss />, level: 35, description: 'UIデザインに使用。基本的なスタイリングができるレベル。' },
-    ]
-  },
-  {
-    name: "バックエンド",
-    skills: [
-      { name: 'Python', icon: <FaPython />, level: 50, description: '大学の講義で使用。pandas, numpy, matplotlibなどのライブラリを使用して簡単なデータ分析を行うことができるレベル。' },
-      { name: 'C', icon: <SiC />, level: 20, description: '大学の講義で使用。基本的な文法やポインタの使い方がわかるレベル。' },
-      { name: 'Java', icon: <FaJava />, level: 20, description: '大学の講義で使用。基本的な文法やオブジェクト指向がわかるレベル。' },
-      { name: 'SQL', icon: <FaDatabase />, level: 30, description: '基��的なクエリの作成ができるレベル。' },
-    ]
-  },
-  {
-    name: "開発ツール・インフラ",
-    skills: [
-      { name: 'Docker', icon: <FaDocker />, level: 30, description: '開発環境を構築する際に使用。基本的なCLI操作を行うことはできるが、DockerFileなどを空から書くのは苦戦するレベル。' },
-      { name: 'Git', icon: <FaGitAlt />, level: 30, description: 'バージョン管理を行うのに使用。基本的な操作を行うことができるレベル。' },
-      { name: 'Linux', icon: <FaServer />, level: 20, description: '基本的なコマンドラインの操作ができるレベル。' },
-    ]
-  },
-];
-
+// スキルカードコンポーネント
 const SkillCard: React.FC<{ skill: Skill }> = React.memo(({ skill }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  // ホバー状態を管理するコールバック関数
   const handleHoverStart = useCallback(() => setIsHovered(true), []);
   const handleHoverEnd = useCallback(() => setIsHovered(false), []);
+
+  const Icon = skill.icon;
 
   return (
     <motion.div
@@ -60,10 +36,12 @@ const SkillCard: React.FC<{ skill: Skill }> = React.memo(({ skill }) => {
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
     >
+      {/* スキルアイコンと名前 */}
       <div className="flex items-center mb-4">
-        <div className="text-4xl mr-4 text-purple-400">{skill.icon}</div>
+        <div className="text-4xl mr-4 text-purple-400"><Icon /></div>
         <h3 className="text-xl font-semibold text-white">{skill.name}</h3>
       </div>
+      {/* スキルレベルを表すプログレスバー */}
       <div className="w-full bg-gray-700 rounded-full h-2.5 mb-4 overflow-hidden">
         <motion.div
           className="h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full"
@@ -73,6 +51,7 @@ const SkillCard: React.FC<{ skill: Skill }> = React.memo(({ skill }) => {
         />
       </div>
       <p className="text-gray-400 text-sm">{skill.level}% Proficiency</p>
+      {/* ホバー時に表示される説明 */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -90,20 +69,24 @@ const SkillCard: React.FC<{ skill: Skill }> = React.memo(({ skill }) => {
   );
 });
 
+// メインのSkillsコンポーネント
 export const Skills: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { threshold: 0.1 });
   const [activeCategory, setActiveCategory] = useState('All');
 
+  // カテゴリー変更のハンドラー
   const handleCategoryChange = useCallback((category: string) => {
     setActiveCategory(category);
   }, []);
 
+  // 全スキルのリストをメモ化
   const allSkills = useMemo(() => 
     skillCategories.flatMap(category => category.skills),
     []
   );
 
+  // 表示するスキルのリストをメモ化
   const displaySkills = useMemo(() => 
     activeCategory === 'All' 
       ? allSkills 
@@ -117,9 +100,11 @@ export const Skills: React.FC = () => {
       className="relative py-20 bg-gradient-to-b from-gray-800 via-gray-900 to-black" 
       id="skills"
     >
+      {/* 背景のグラデーション */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 via-blue-900/5 to-transparent pointer-events-none"></div>
       
       <div className="container mx-auto px-4 relative z-10">
+        {/* セクションタイトル */}
         <motion.h2 
           className="text-4xl font-bold text-center text-purple-300 mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -129,6 +114,7 @@ export const Skills: React.FC = () => {
           Skills
         </motion.h2>
 
+        {/* カテゴリー選択ボタン */}
         <div className="flex justify-center mb-8 overflow-x-auto pb-2">
           <motion.button
             key="All"
@@ -158,6 +144,7 @@ export const Skills: React.FC = () => {
           ))}
         </div>
 
+        {/* スキルカードのグリッド */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
