@@ -56,7 +56,7 @@ const AboutMe: React.FC = () => {
       <ul className="list-disc list-inside text-gray-300 space-y-2">
         <li>ウェブアプリケーション開発: React, Next.js, TypeScript</li>
         <li>機械学習と深層学習: TensorFlow, PyTorch</li>
-        <li>クラウドコンピューティング: AWS, Google Cloud Platform</li>
+        <li>クラウドコンピューティング: Vercel, Google Cloud Platform</li>
       </ul>
     ),
   };
