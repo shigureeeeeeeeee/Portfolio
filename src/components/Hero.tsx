@@ -1,6 +1,5 @@
-"use client"; // Next.jsのクライアントコンポーネントであることを示す
+"use client"; 
 
-// 必要なモジュールとコンポーネントをインポート
 import React, { useEffect, useState, useCallback } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
 import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";

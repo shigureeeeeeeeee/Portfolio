@@ -1,6 +1,5 @@
-"use client"; // Next.jsのクライアントコンポーネントであることを示す
+"use client"; 
 
-// 必要なモジュールとコンポーネントをインポート
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 

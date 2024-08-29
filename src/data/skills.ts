@@ -1,4 +1,3 @@
-import { IconType } from 'react-icons';
 import { FaPython, FaReact, FaJs, FaJava, FaDocker, FaGitAlt, FaDatabase, FaServer } from 'react-icons/fa';
 import { SiNextdotjs, SiTypescript, SiC, SiTailwindcss, SiAmazonaws, SiGooglecloud } from 'react-icons/si';
 

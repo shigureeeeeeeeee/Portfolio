@@ -43,5 +43,4 @@ const SkillProgressBar: React.FC<SkillProgressBarProps> = ({
   );
 };
 
-// コンポーネントをエクスポート（他のファイルでインポートして使用できるようにする）
 export default SkillProgressBar;

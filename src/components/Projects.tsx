@@ -1,50 +1,56 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "../hooks/useInView";
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import { FiExternalLink, FiGithub } from "react-icons/fi";
-import Image from "next/image";
-import { projects, Project } from '../data/projects';
+import React, { useRef, useState } from "react"; // Reactとフックをインポート
+import { motion } from "framer-motion"; // アニメーションを作成するためのライブラリ
+import { useInView } from "../hooks/useInView"; // 要素が画面内に表示されているかを検出するカスタムフック
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card"; // カスタムカードコンポーネント
+import { FiExternalLink, FiGithub } from "react-icons/fi"; // アイコンコンポーネント
+import Image from "next/image"; // 画像を最適化して表示するためのコンポーネント
+import { projects, Project } from '../data/projects'; // プロジェクトデータと型をインポート
 
+// Projectsコンポーネントの定義
 const Projects: React.FC = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { threshold: 0.1 });
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const ref = useRef<HTMLDivElement>(null); // セクションの参照を作成
+  const isInView = useInView(ref, { threshold: 0.1 }); // 要素が画面内に表示されているかをチェック
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null); // 選択されたプロジェクトを管理するステート
 
   return (
     <section ref={ref} className="relative py-20 bg-gradient-to-b from-black via-gray-900 to-gray-800" id="projects">
+      {/* 背景のグラデーションを設定 */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-purple-900/5 to-transparent pointer-events-none"></div>
       <div className="container mx-auto px-4 relative z-10">
         <motion.h2
           className="text-4xl font-bold text-center text-purple-300 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }} // 初期状態のアニメーション
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} // スクロールで表示されるときのアニメーション
+          transition={{ duration: 0.5 }} // アニメーションの持続時間
         >
           Projects
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-4">
+          {/* プロジェクトデータをマッピングしてカードを表示 */}
           {projects.map((project, index) => (
             <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              key={project.id} // 各プロジェクトのユニークなキー
+              initial={{ opacity: 0, y: 20 }} // 初期状態のアニメーション
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} // スクロールで表示されるときのアニメーション
+              transition={{ duration: 0.5, delay: index * 0.1 }} // アニメーションの持続時間と遅延
             >
               <ProjectCard project={project} setSelectedProject={setSelectedProject} />
+              {/* ProjectCardコンポーネントを使用してプロジェクト情報を表示 */}
             </motion.div>
           ))}
         </div>
         {selectedProject && (
           <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+          // プロジェクトが選択されている場合、モーダルを表示
         )}
       </div>
     </section>
   );
 };
 
+// ProjectCardコンポーネントの定義
 const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Project) => void }> = ({ project, setSelectedProject }) => {
   return (
     <CardContainer className="inter-var">
@@ -54,14 +60,14 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
             translateZ="50"
             className="text-2xl font-bold text-purple-300 mb-4"
           >
-            {project.title}
+            {project.title} {/* プロジェクトのタイトルを表示 */}
           </CardItem>
           <CardItem
             as="p"
             translateZ="60"
             className="text-gray-300 mb-4 text-sm"
           >
-            {project.description}
+            {project.description} {/* プロジェクトの説明を表示 */}
           </CardItem>
         </div>
         <CardItem translateZ="100" className="w-full mb-4 flex items-center justify-center">
@@ -71,7 +77,7 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
               layout="fill"
               objectFit="cover"
               className="rounded-xl group-hover/card:shadow-xl"
-              alt={project.title}
+              alt={project.title} // 画像の代替テキスト
             />
           </div>
         </CardItem>
@@ -80,7 +86,7 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
             translateZ={20}
             as="button"
             className="px-4 py-2 rounded-xl bg-purple-600 text-white text-sm font-bold"
-            onClick={() => setSelectedProject(project)}
+            onClick={() => setSelectedProject(project)} // ボタンをクリックするとプロジェクトを選択
           >
             詳細を見る
           </CardItem>
@@ -93,7 +99,7 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
             className="px-4 py-2 rounded-xl bg-gray-700 text-white text-sm font-bold"
           >
             <FiGithub className="inline-block mr-2" />
-            GitHub
+            GitHub {/* GitHubリンクを表示 */}
           </CardItem>
         </div>
       </CardBody>
@@ -101,6 +107,7 @@ const ProjectCard: React.FC<{ project: Project; setSelectedProject: (project: Pr
   );
 };
 
+// ProjectModalコンポーネントの定義
 const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ project, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -112,7 +119,7 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech, index) => (
               <span key={index} className="bg-gray-700 text-white px-2 py-1 rounded-full text-sm">
-                {tech}
+                {tech} {/* 使用技術を表示 */}
               </span>
             ))}
           </div>
@@ -125,7 +132,7 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
             className="flex items-center bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
           >
             <FiExternalLink className="mr-2" />
-            サイトを見る
+            サイトを見る {/* プロジェクトのリンクを表示 */}
           </a>
           <a
             href={project.github}
@@ -134,10 +141,10 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
             className="flex items-center bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
           >
             <FiGithub className="mr-2" />
-            GitHub
+            GitHub {/* GitHubリンクを表示 */}
           </a>
           <button
-            onClick={onClose}
+            onClick={onClose} // モーダルを閉じるボタン
             className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition-colors"
           >
             閉じる

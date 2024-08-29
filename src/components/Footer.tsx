@@ -1,4 +1,3 @@
-// 必要なモジュールとコンポーネントをインポート
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
