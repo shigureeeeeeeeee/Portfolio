@@ -2,35 +2,28 @@ import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from '../hooks/useInView';
 import Image from 'next/image';
-import { FaCode, FaLaptopCode, FaBookReader, FaGraduationCap, FaCoffee, FaUniversity, FaAward, FaProjectDiagram } from 'react-icons/fa';
-import { aboutMeContent } from '../data/aboutMe';
+import { FaCode, FaLaptopCode, FaBookReader, FaGraduationCap, FaCoffee, FaUniversity, FaAward, FaProjectDiagram, FaBriefcase } from 'react-icons/fa';
+import { aboutMeContent, AboutMeContent } from '../data/aboutMe';
 
-// タブのIDを定義する型
-type TabId = 'profile' | 'education' | 'achievements' | 'interests';
+type TabId = 'profile' | 'education' | 'achievements' | 'interests' | 'experience';
 
-// タブの内容を定義する型
 type TabContent = {
   [key in TabId]: JSX.Element;
 };
 
-// AboutMeコンポーネントの定義
 const AboutMe: React.FC = () => {
-  // セクションの参照を作成
   const ref = useRef<HTMLDivElement>(null);
-  // セクションが表示されているかどうかを検出
   const isInView = useInView(ref, { threshold: 0.1 });
-  // アクティブなタブを管理するstate
   const [activeTab, setActiveTab] = useState<TabId>('profile');
 
-  // タブの定義
   const tabs: { id: TabId; label: string; icon: JSX.Element }[] = [
     { id: 'profile', label: 'プロフィール', icon: <FaGraduationCap /> },
     { id: 'education', label: '学歴', icon: <FaUniversity /> },
     { id: 'achievements', label: '実績', icon: <FaAward /> },
     { id: 'interests', label: '興味分野', icon: <FaProjectDiagram /> },
+    { id: 'experience', label: '経験', icon: <FaBriefcase /> },
   ];
 
-  // タブの内容を定義
   const tabContent: TabContent = {
     profile: (
       <>
@@ -60,15 +53,19 @@ const AboutMe: React.FC = () => {
         ))}
       </ul>
     ),
+    experience: (
+      <ul className="list-disc list-inside text-gray-300 space-y-2">
+        {aboutMeContent.experience.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    ),
   };
 
   return (
-    // AboutMeセクション
     <section ref={ref} className="relative py-20 bg-gradient-to-b from-black via-gray-900 to-gray-800" id="about">
-      {/* 背景のグラデーション効果 */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-purple-900/5 to-transparent pointer-events-none"></div>
       <div className="container mx-auto px-4 relative z-10">
-        {/* セクションタイトル */}
         <motion.h2
           className="text-4xl font-bold text-center text-purple-300 mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -77,9 +74,7 @@ const AboutMe: React.FC = () => {
         >
           About Me
         </motion.h2>
-
         <div className="flex flex-col lg:flex-row items-center justify-between">
-          {/* プロフィール画像 */}
           <motion.div
             className="lg:w-1/3 mb-8 lg:mb-0"
             initial={{ opacity: 0, x: -50 }}
@@ -87,9 +82,7 @@ const AboutMe: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="relative w-64 h-64 mx-auto">
-              {/* 画像の背景エフェクト */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-blue-500/30 rounded-full opacity-75 blur-2xl"></div>
-              {/* プロフィール画像 */}
               <Image
                 src="/img/icon.jpg"
                 alt="shigure"
@@ -99,8 +92,6 @@ const AboutMe: React.FC = () => {
               />
             </div>
           </motion.div>
-
-          {/* プロフィール情報 */}
           <motion.div
             className="lg:w-2/3 text-center lg:text-left"
             initial={{ opacity: 0, x: 50 }}
@@ -108,8 +99,6 @@ const AboutMe: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <h3 className="text-4xl font-semibold text-purple-300 mb-4">Hello!</h3>
-            
-            {/* タブボタン */}
             <div className="flex justify-center lg:justify-start space-x-4 mb-6">
               {tabs.map((tab) => (
                 <motion.button
@@ -126,8 +115,6 @@ const AboutMe: React.FC = () => {
                 </motion.button>
               ))}
             </div>
-
-            {/* タブの内容 */}
             <motion.div
               key={activeTab}
               initial={{ opacity: 0, y: 20 }}
@@ -137,8 +124,6 @@ const AboutMe: React.FC = () => {
             >
               {tabContent[activeTab]}
             </motion.div>
-
-            {/* 趣味セクション */}
             <div className="mt-6 flex items-center justify-center lg:justify-start">
               <FaCoffee className="text-purple-400 mr-2" />
               <span className="text-gray-300">趣味：{aboutMeContent.hobbies}</span>

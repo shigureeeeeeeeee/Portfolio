@@ -1,4 +1,15 @@
-export const aboutMeContent = {
+export interface AboutMeContent {
+  profile: {
+    paragraphs: string[];
+  };
+  education: string[];
+  achievements: string[];
+  interests: string[];
+  hobbies: string;
+  experience: string[];
+}
+
+export const aboutMeContent: AboutMeContent = {
   profile: {
     paragraphs: [
       "はじめまして。公立はこだて未来大学の学生で、Web開発とAI技術に情熱を注いでいます。私の目標は、技術を通じて人々の生活を豊かにし、社会に貢献することです。",
@@ -21,5 +32,8 @@ export const aboutMeContent = {
     "機械学習と深層学習: TensorFlow, PyTorch",
     "クラウドコンピューティング: Vercel, Google Cloud Platform"
   ],
-  hobbies: "コーヒー、読書、料理、Web開発、競技プログラミング"
+  hobbies: "コーヒー、読書、料理、Web開発、競技プログラミング",
+  experience: [
+    "現在作成中......"
+  ]
 };
