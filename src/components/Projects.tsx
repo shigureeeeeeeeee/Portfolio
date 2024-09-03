@@ -7,6 +7,9 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card"; // 
 import { FiExternalLink, FiGithub } from "react-icons/fi"; // アイコンコンポーネント
 import Image from "next/image"; // 画像を最適化して表示するためのコンポーネント
 import { projects, Project } from '../data/projects'; // プロジェクトデータと型をインポート
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 // Projectsコンポーネントの定義
 const Projects: React.FC = () => {
@@ -27,20 +30,35 @@ const Projects: React.FC = () => {
         >
           Projects
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-4">
-          {/* プロジェクトデータをマッピングしてカードを表示 */}
+        <Slider
+          dots={true}
+          infinite={true}
+          speed={500}
+          slidesToShow={3}
+          slidesToScroll={1}
+          responsive={[
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]}
+        >
           {projects.map((project, index) => (
-            <motion.div
-              key={project.id} // 各プロジェクトのユニークなキー
-              initial={{ opacity: 0, y: 20 }} // 初期状態のアニメーション
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} // スクロールで表示されるときのアニメーション
-              transition={{ duration: 0.5, delay: index * 0.1 }} // アニメーションの持続時間と遅延
-            >
+            <div key={project.id} className="px-2">
               <ProjectCard project={project} setSelectedProject={setSelectedProject} />
-              {/* ProjectCardコンポーネントを使用してプロジェクト情報を表示 */}
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </Slider>
         {selectedProject && (
           <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
           // プロジェクトが選択されている場合、モーダルを表示
