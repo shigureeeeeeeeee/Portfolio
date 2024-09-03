@@ -7,8 +7,11 @@ const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 
 // メタデータの定義
 export const metadata: Metadata = {
-  title: "Your Portfolio", // ページのタイトル
+  title: "Shigure's Portfolio", // ページのタイトル
   description: "A showcase of my projects and skills", // ページの説明
+  icons: {
+    icon: '/img/icon.jpg', // ここで新しいファビコンを指定
+  },
 };
 
 // RootLayoutコンポーネントの定義
