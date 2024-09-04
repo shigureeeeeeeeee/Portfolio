@@ -39,5 +39,5 @@ export const projects: Project[] = [
     technologies: ["Python", "FastAPI", "React", "TypeScript", "機械学習"],
     link: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
     github: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
-  }
+  },
 ];

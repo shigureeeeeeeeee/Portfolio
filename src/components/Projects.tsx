@@ -7,9 +7,36 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card"; // 
 import { FiExternalLink, FiGithub } from "react-icons/fi"; // アイコンコンポーネント
 import Image from "next/image"; // 画像を最適化して表示するためのコンポーネント
 import { projects, Project } from '../data/projects'; // プロジェクトデータと型をインポート
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import styled from 'styled-components';
+
+const CustomSlider = styled.div`
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+
+  .slider-content {
+    display: flex;
+    animation: slide 15s linear infinite;
+  }
+
+  .slider-item {
+    flex: 0 0 33.333%;
+    padding: 0 10px;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  &:hover .slider-content {
+    animation-play-state: paused;
+  }
+`;
 
 // Projectsコンポーネントの定義
 const Projects: React.FC = () => {
@@ -30,35 +57,15 @@ const Projects: React.FC = () => {
         >
           Projects
         </motion.h2>
-        <Slider
-          dots={true}
-          infinite={true}
-          speed={500}
-          slidesToShow={3}
-          slidesToScroll={1}
-          responsive={[
-            {
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-              }
-            },
-            {
-              breakpoint: 600,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-              }
-            }
-          ]}
-        >
-          {projects.map((project, index) => (
-            <div key={project.id} className="px-2">
-              <ProjectCard project={project} setSelectedProject={setSelectedProject} />
-            </div>
-          ))}
-        </Slider>
+        <CustomSlider>
+          <div className="slider-content">
+            {projects.concat(projects).map((project, index) => (
+              <div key={`${project.id}-${index}`} className="slider-item">
+                <ProjectCard project={project} setSelectedProject={setSelectedProject} />
+              </div>
+            ))}
+          </div>
+        </CustomSlider>
         {selectedProject && (
           <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
           // プロジェクトが選択されている場合、モーダルを表示
