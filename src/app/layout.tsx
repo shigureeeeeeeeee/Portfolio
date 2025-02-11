@@ -1,7 +1,7 @@
 import type { Metadata } from "next"; // Next.jsのメタデータ型をインポート
 import { Inter } from "next/font/google"; // Google FontsからInterフォントをインポート
 import "./globals.css"; // グローバルCSSスタイルをインポート
-import { LanguageProvider } from "@/contexts/LanguageContext";
+import { LanguageProvider } from "../contexts/LanguageContext";
 
 // Interフォントを設定
 const inter = Inter({ subsets: ["latin"] });

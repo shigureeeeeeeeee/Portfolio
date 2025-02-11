@@ -10,8 +10,8 @@ import {
   FaHeart,
   FaArrowUp,
 } from "react-icons/fa";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/data/translations";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../data/translations";
 
 // Footerコンポーネントの定義
 const Footer: React.FC = () => {

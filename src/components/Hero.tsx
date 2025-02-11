@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Image from "next/image";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/data/translations";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../data/translations";
 
 export const Hero: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);

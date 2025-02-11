@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "../hooks/useInView";
 import { IconType } from "react-icons";
 import { skillCategories } from "../data/skills";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/data/translations";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../data/translations";
 
 // スキルの型定義
 interface Skill {
