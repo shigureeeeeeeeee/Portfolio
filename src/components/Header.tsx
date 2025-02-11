@@ -18,8 +18,8 @@ import {
   FiMail,
   FiChevronUp,
 } from "react-icons/fi";
-import { useLanguage } from "../contexts/LanguageContext";
-import { translations } from "../data/translations";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/data/translations";
 import { LanguageToggle } from "./LanguageToggle";
 import Link from "next/link";
 

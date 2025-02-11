@@ -25,8 +25,8 @@ import {
   FaRocket,
   FaChevronRight,
 } from "react-icons/fa";
-import { useLanguage } from "../contexts/LanguageContext";
-import { translations } from "../data/translations";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/data/translations";
 
 type TabId = "profile" | "education" | "interests" | "experience";
 
