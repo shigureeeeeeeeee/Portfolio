@@ -1,135 +1,315 @@
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from '../hooks/useInView';
-import Image from 'next/image';
-import { FaCode, FaLaptopCode, FaBookReader, FaGraduationCap, FaCoffee, FaUniversity, FaAward, FaProjectDiagram, FaBriefcase } from 'react-icons/fa';
-import { aboutMeContent, AboutMeContent } from '../data/aboutMe';
+"use client";
 
-type TabId = 'profile' | 'education' | 'achievements' | 'interests' | 'experience';
+import React, { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from "../hooks/useInView";
+import Image from "next/image";
+import {
+  FaCode,
+  FaLaptopCode,
+  FaBookReader,
+  FaGraduationCap,
+  FaCoffee,
+  FaUniversity,
+  FaAward,
+  FaProjectDiagram,
+  FaBriefcase,
+  FaGamepad,
+  FaMusic,
+  FaCamera,
+  FaBook,
+  FaPalette,
+  FaCalendarAlt,
+  FaMedal,
+  FaLightbulb,
+  FaRocket,
+  FaChevronRight,
+} from "react-icons/fa";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/data/translations";
+
+type TabId = "profile" | "education" | "interests" | "experience";
 
 type TabContent = {
   [key in TabId]: JSX.Element;
 };
 
+const HobbyCard: React.FC<{
+  icon: JSX.Element;
+  title: string;
+  description: string;
+}> = ({ icon, title, description }) => (
+  <motion.div
+    className="glass-effect p-4 rounded-xl flex flex-col items-center gap-2 hover-lift h-[180px]"
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <div className="text-purple-400 text-2xl">{icon}</div>
+    <h4 className="text-gradient-static font-semibold">{title}</h4>
+    <p className="text-gray-400 text-sm text-center line-clamp-3">
+      {description}
+    </p>
+  </motion.div>
+);
+
+const TimelineItem: React.FC<{
+  year: string;
+  title: string;
+  description: string;
+  icon?: JSX.Element;
+}> = ({ year, title, description, icon }) => (
+  <div className="flex gap-4 relative">
+    <div className="flex flex-col items-center">
+      <div className="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-purple-400">
+        {icon || <FaCalendarAlt />}
+      </div>
+      <div className="w-0.5 h-full bg-purple-500/20 absolute top-12 left-6 -z-10" />
+    </div>
+    <div className="flex-1 glass-effect p-4 rounded-xl mb-8">
+      <div className="text-sm text-purple-400 mb-1">{year}</div>
+      <h4 className="text-gradient-static font-semibold mb-2">{title}</h4>
+      <p className="text-gray-400 text-sm">{description}</p>
+    </div>
+  </div>
+);
+
+const AchievementCard: React.FC<{
+  icon: JSX.Element;
+  title: string;
+  description: string;
+}> = ({ icon, title, description }) => (
+  <motion.div
+    className="glass-effect p-4 rounded-xl flex items-start gap-4 hover-lift"
+    whileHover={{ scale: 1.02 }}
+  >
+    <div className="text-purple-400 text-2xl mt-1">{icon}</div>
+    <div>
+      <h4 className="text-gradient-static font-semibold mb-1">{title}</h4>
+      <p className="text-gray-400 text-sm">{description}</p>
+    </div>
+  </motion.div>
+);
+
+const InterestCard: React.FC<{
+  icon: JSX.Element;
+  title: string;
+  description: string;
+}> = ({ icon, title, description }) => (
+  <motion.div
+    className="glass-effect p-4 rounded-xl hover-lift"
+    whileHover={{ scale: 1.05 }}
+  >
+    <div className="flex items-center gap-3 mb-2">
+      <div className="text-purple-400 text-xl">{icon}</div>
+      <h4 className="text-gradient-static font-semibold">{title}</h4>
+    </div>
+    <p className="text-gray-400 text-sm">{description}</p>
+  </motion.div>
+);
+
+const TabButton: React.FC<{
+  isActive: boolean;
+  onClick: () => void;
+  icon: JSX.Element;
+  label: string;
+}> = ({ isActive, onClick, icon, label }) => (
+  <motion.button
+    onClick={onClick}
+    className={`flex items-center px-6 py-3 rounded-xl text-sm transition-all duration-300 ${
+      isActive
+        ? "glass-card neon-glow text-white font-medium"
+        : "glass-effect text-gray-400 hover:text-white"
+    }`}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <span className="text-lg">{icon}</span>
+    <span className="ml-2">{label}</span>
+    {isActive && (
+      <motion.span
+        className="ml-2 text-purple-400"
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <FaChevronRight size={12} />
+      </motion.span>
+    )}
+  </motion.button>
+);
+
 const AboutMe: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { threshold: 0.1 });
-  const [activeTab, setActiveTab] = useState<TabId>('profile');
+  const [activeTab, setActiveTab] = useState<TabId>("profile");
+  const { language } = useLanguage();
 
-  const tabs: { id: TabId; label: string; icon: JSX.Element }[] = [
-    { id: 'profile', label: 'プロフィール', icon: <FaGraduationCap /> },
-    { id: 'education', label: '学歴', icon: <FaUniversity /> },
-    { id: 'achievements', label: '実績', icon: <FaAward /> },
-    { id: 'interests', label: '興味分野', icon: <FaProjectDiagram /> },
-    { id: 'experience', label: '経験', icon: <FaBriefcase /> },
+  const tabs = [
+    {
+      id: "profile" as TabId,
+      label: translations[language].about.tabs.profile,
+      icon: <FaGraduationCap />,
+    },
+    {
+      id: "education" as TabId,
+      label: translations[language].about.tabs.education,
+      icon: <FaUniversity />,
+    },
+    {
+      id: "interests" as TabId,
+      label: translations[language].about.tabs.interests,
+      icon: <FaProjectDiagram />,
+    },
+    {
+      id: "experience" as TabId,
+      label: translations[language].about.tabs.experience,
+      icon: <FaBriefcase />,
+    },
   ];
+
+  const hobbies = translations[language].about.hobbies.items.map(
+    (hobby, index) => ({
+      icon: [
+        <FaGamepad />,
+        <FaMusic />,
+        <FaCamera />,
+        <FaBook />,
+        <FaPalette />,
+      ][index],
+      title: hobby.title,
+      description: hobby.description,
+    })
+  );
 
   const tabContent: TabContent = {
     profile: (
-      <>
-        {aboutMeContent.profile.paragraphs.map((paragraph, index) => (
-          <p key={index} className="text-gray-300 mb-4">{paragraph}</p>
-        ))}
-      </>
+      <div className="space-y-6">
+        {translations[language].about.profile.paragraphs.map(
+          (paragraph, index) => (
+            <motion.p
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="text-gray-300 leading-relaxed"
+            >
+              {paragraph}
+            </motion.p>
+          )
+        )}
+      </div>
     ),
     education: (
-      <ul className="list-disc list-inside text-gray-300 space-y-2">
-        {aboutMeContent.education.map((item, index) => (
-          <li key={index}>{item}</li>
+      <div className="space-y-4">
+        {translations[language].about.education.map((item, index) => (
+          <TimelineItem
+            key={index}
+            year={item.split(" - ")[0]}
+            title={item.split(" - ")[1]}
+            description={item.split(" - ")[2] || ""}
+            icon={<FaUniversity />}
+          />
         ))}
-      </ul>
-    ),
-    achievements: (
-      <ul className="list-disc list-inside text-gray-300 space-y-2">
-        {aboutMeContent.achievements.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      </div>
     ),
     interests: (
-      <ul className="list-disc list-inside text-gray-300 space-y-2">
-        {aboutMeContent.interests.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <div className="space-y-8">
+        <div className="grid gap-4 sm:grid-cols-2">
+          {translations[language].about.interests.map((item, index) => (
+            <InterestCard
+              key={index}
+              icon={<FaLightbulb />}
+              title={item.split(" - ")[0]}
+              description={item.split(" - ")[1] || ""}
+            />
+          ))}
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-gradient-static mb-4">
+            {translations[language].about.hobbies.title}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {hobbies.map((hobby, index) => (
+              <motion.div
+                key={hobby.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <HobbyCard {...hobby} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
     ),
     experience: (
-      <ul className="list-disc list-inside text-gray-300 space-y-2">
-        {aboutMeContent.experience.map((item, index) => (
-          <li key={index}>{item}</li>
+      <div className="space-y-4">
+        {translations[language].about.experience.map((item, index) => (
+          <TimelineItem
+            key={index}
+            year={item.split(" - ")[0]}
+            title={item.split(" - ")[1]}
+            description={item.split(" - ")[2] || ""}
+            icon={<FaRocket />}
+          />
         ))}
-      </ul>
+      </div>
     ),
   };
 
   return (
-    <section ref={ref} className="relative py-20 bg-gradient-to-b from-black via-gray-900 to-gray-800" id="about">
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-purple-900/5 to-transparent pointer-events-none"></div>
+    <section ref={ref} className="relative py-20" id="about">
       <div className="container mx-auto px-4 relative z-10">
         <motion.h2
-          className="text-4xl font-bold text-center text-purple-300 mb-12"
+          className="text-5xl font-bold text-center mb-16 text-gradient"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          About Me
+          {translations[language].about.title}
         </motion.h2>
-        <div className="flex flex-col lg:flex-row items-center justify-between">
+
+        <div className="max-w-5xl mx-auto">
           <motion.div
-            className="lg:w-1/3 mb-8 lg:mb-0"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            className="w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="relative w-64 h-64 mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-blue-500/30 rounded-full opacity-75 blur-2xl"></div>
-              <Image
-                src="/img/icon.jpg"
-                alt="shigure"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full border-4 border-purple-500/50 relative z-10"
-              />
-            </div>
-          </motion.div>
-          <motion.div
-            className="lg:w-2/3 text-center lg:text-left"
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <h3 className="text-4xl font-semibold text-purple-300 mb-4">Hello!</h3>
-            <div className="flex flex-wrap justify-center lg:justify-start space-x-2 space-y-2 mb-6">
+            {/* タブナビゲーション */}
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
               {tabs.map((tab) => (
-                <motion.button
+                <TabButton
                   key={tab.id}
+                  isActive={activeTab === tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center px-3 py-1 rounded-full text-sm ${
-                    activeTab === tab.id ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {tab.icon}
-                  <span className="ml-1">{tab.label}</span>
-                </motion.button>
+                  icon={tab.icon}
+                  label={tab.label}
+                />
               ))}
             </div>
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {tabContent[activeTab]}
-            </motion.div>
-            <div className="mt-6 flex items-center justify-center lg:justify-start">
-              <FaCoffee className="text-purple-400 mr-2" />
-              <span className="text-gray-300">趣味：{aboutMeContent.hobbies}</span>
-            </div>
+
+            {/* タブコンテンツ */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="glass-effect p-8 rounded-2xl"
+              >
+                {tabContent[activeTab]}
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
         </div>
+      </div>
+
+      {/* 装飾的な背景要素 */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
     </section>
   );

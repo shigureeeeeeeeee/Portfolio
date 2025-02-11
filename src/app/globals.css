@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 263.4 70% 50.4%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --radius: 0.75rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -59,11 +59,280 @@
   }
 }
 
+@layer components {
+  .glass-effect {
+    @apply bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-25 border border-white/10 hover:border-purple-300/40 transition-all duration-700;
+    background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
+    box-shadow: 0 4px 32px rgba(147, 51, 234, 0.15),
+      inset 0 0 32px rgba(147, 51, 234, 0.05);
+  }
+
+  .glass-card {
+    @apply glass-effect rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_48px_rgba(147,51,234,0.3)] transition-all duration-700;
+    &:hover {
+      @apply bg-opacity-35;
+      transform: translateY(-8px) scale(1.03);
+      background-image: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.12),
+        rgba(255, 255, 255, 0.06)
+      );
+    }
+  }
+
+  .gradient-border {
+    @apply relative rounded-full bg-transparent w-full h-full;
+    background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+    padding: 3px;
+    box-shadow: 0 0 20px rgba(224, 195, 252, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 0 30px rgba(142, 197, 252, 0.4);
+    }
+
+    &::before {
+      content: "";
+      @apply absolute -inset-2 rounded-full blur-md -z-10;
+      background: inherit;
+      opacity: 0.4;
+    }
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent transition-all duration-700;
+    background-image: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    &:hover {
+      text-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+    }
+  }
+
+  /* プロジェクト名用の静的なグラデーション */
+  .text-gradient-static {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    &:hover {
+      text-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+    }
+  }
+
+  .hover-lift {
+    @apply transition-all duration-700;
+    &:hover {
+      transform: translateY(-8px) scale(1.04);
+      @apply shadow-2xl shadow-purple-500/40;
+    }
+  }
+
+  .neon-glow {
+    @apply relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 rounded-2xl blur-3xl opacity-40 -z-10 transition-all duration-700;
+      background: radial-gradient(
+        circle at center,
+        rgba(147, 51, 234, 0.7),
+        rgba(139, 92, 246, 0.7),
+        rgba(124, 58, 237, 0)
+      );
+    }
+    &:hover::before {
+      @apply opacity-70 scale-150;
+      filter: blur(60px);
+    }
+  }
+
+  .animated-gradient-bg {
+    background: linear-gradient(
+      -45deg,
+      rgba(147, 51, 234, 0.3),
+      rgba(139, 92, 246, 0.3),
+      rgba(124, 58, 237, 0.3),
+      rgba(167, 139, 250, 0.3)
+    );
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite;
+    position: relative;
+    &::after {
+      content: "";
+      @apply absolute inset-0;
+      background: radial-gradient(
+        circle at center,
+        transparent,
+        rgba(0, 0, 0, 0.4)
+      );
+    }
+  }
+
+  .card-hover-effect {
+    @apply relative overflow-hidden transition-all duration-700;
+    &::before {
+      content: "";
+      @apply absolute inset-0 opacity-0 transition-all duration-700;
+      background: radial-gradient(
+        1200px circle at var(--mouse-x) var(--mouse-y),
+        rgba(147, 51, 234, 0.2),
+        transparent 40%
+      );
+    }
+    &::after {
+      content: "";
+      @apply absolute inset-0 opacity-0 transition-all duration-700;
+      background: radial-gradient(
+        1000px circle at var(--mouse-x) var(--mouse-y),
+        rgba(139, 92, 246, 0.2),
+        transparent 40%
+      );
+    }
+    &:hover::before,
+    &:hover::after {
+      @apply opacity-100;
+    }
+  }
+
+  .shine-effect {
+    @apply relative overflow-hidden;
+    &::after {
+      content: "";
+      @apply absolute inset-0 -translate-x-full;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.12),
+        transparent
+      );
+      animation: shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+  }
+
+  .floating-element {
+    animation: floating 6s ease-in-out infinite;
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@layer utilities {
+  .scrollbar-custom {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(147, 51, 234, 0.5) transparent;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    @apply bg-purple-500/50 rounded-full transition-all duration-300;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    @apply bg-purple-500/70;
+  }
+
+  @keyframes borderRotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes floating {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(-20px) rotate(2deg);
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(-40px) rotate(3deg);
+    }
+  }
+
+  @keyframes gradient {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+  }
+
+  .backdrop-blur-custom {
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  .animate-shine {
+    animation: shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* 他のアニメーション */
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased scrollbar-custom selection:bg-purple-500/40 selection:text-white;
+    background-image: radial-gradient(
+      circle at center,
+      rgba(147, 51, 234, 0.1) 0%,
+      transparent 70%
+    );
+  }
+
+  a,
+  button {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background transition-all duration-300;
   }
 }

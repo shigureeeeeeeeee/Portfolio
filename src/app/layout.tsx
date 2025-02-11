@@ -1,29 +1,31 @@
 import type { Metadata } from "next"; // Next.jsのメタデータ型をインポート
-import { Roboto } from "next/font/google"; // Google FontsからRobotoフォントをインポート
+import { Inter } from "next/font/google"; // Google FontsからInterフォントをインポート
 import "./globals.css"; // グローバルCSSスタイルをインポート
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
-// Robotoフォントを設定
-const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
+// Interフォントを設定
+const inter = Inter({ subsets: ["latin"] });
 
 // メタデータの定義
 export const metadata: Metadata = {
-  title: "Shigure's Portfolio", // ページのタイトル
-  description: "A showcase of my projects and skills", // ページの説明
-  icons: {
-    icon: '/img/icon.jpg', // ここで新しいファビコンを指定
-  },
+  title: "Portfolio",
+  description: "My portfolio website",
 };
 
 // RootLayoutコンポーネントの定義
 export default function RootLayout({
   children, // 子コンポーネントを受け取るプロパティ
-}: Readonly<{
-  children: React.ReactNode; // childrenの型を定義
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en"> {/* HTMLの言語属性を設定 */}
-      <body className={`${roboto.className} transition-colors duration-300`}> {/* フォントとトランジション効果を適用 */}
-        {children} {/* 子コンポーネントを表示 */}
+    <html lang="en">
+      {" "}
+      {/* HTMLの言語属性を設定 */}
+      <body className={inter.className}>
+        {" "}
+        {/* フォントを適用 */}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
