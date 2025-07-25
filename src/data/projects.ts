@@ -12,10 +12,13 @@ export interface Project {
     ja: string;
     en: string;
   };
-  image: string;
+  image?: string; // オプションにして画像なしプロジェクトに対応
   technologies: string[];
   link: string;
   github: string;
+  category: 'web' | 'api' | 'tool' | 'library' | 'mobile'; // プロジェクトカテゴリ
+  status: 'completed' | 'in-progress' | 'archived'; // プロジェクト状況
+  featured?: boolean; // 注目プロジェクトかどうか
 }
 
 export const projects: Project[] = [
@@ -37,6 +40,9 @@ export const projects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     link: "https://portfolio-plum-phi-54.vercel.app",
     github: "https://github.com/shigureeeeeeeeee/Portfolio",
+    category: "web",
+    status: "completed",
+    featured: true,
   },
   {
     id: "2",
@@ -62,6 +68,8 @@ export const projects: Project[] = [
     ],
     link: "https://github.com/shigureeeeeeeeee/BlogCraft",
     github: "https://github.com/shigureeeeeeeeee/BlogCraft",
+    category: "web",
+    status: "completed",
   },
   {
     id: "3",
@@ -87,5 +95,47 @@ export const projects: Project[] = [
     ],
     link: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
     github: "https://github.com/shigureeeeeeeeee/ScheduleGenerator",
+    category: "tool",
+    status: "completed",
+  },
+  {
+    id: "4",
+    title: {
+      ja: "データ解析ライブラリ",
+      en: "Data Analysis Library",
+    },
+    description: {
+      ja: "Pythonで開発した統計分析とデータ可視化のためのユーティリティライブラリ。効率的なデータ処理機能を提供。",
+      en: "A Python utility library for statistical analysis and data visualization. Provides efficient data processing capabilities.",
+    },
+    longDescription: {
+      ja: "Python、Pandas、NumPy、Matplotlibを使用して開発したデータ分析ライブラリです。統計的手法を実装し、大量データの効率的な処理と可視化を実現。研究や業務でのデータ分析作業を大幅に簡素化します。",
+      en: "A data analysis library developed using Python, Pandas, NumPy, and Matplotlib. Implements statistical methods for efficient processing and visualization of large datasets. Significantly simplifies data analysis work in research and business contexts.",
+    },
+    technologies: ["Python", "Pandas", "NumPy", "Matplotlib", "SciPy"],
+    link: "https://github.com/shigureeeeeeeeee/data-utils",
+    github: "https://github.com/shigureeeeeeeeee/data-utils",
+    category: "library",
+    status: "in-progress",
+  },
+  {
+    id: "5",
+    title: {
+      ja: "REST API サービス",
+      en: "REST API Service",
+    },
+    description: {
+      ja: "Node.js、Express、TypeScriptで構築したスケーラブルなREST APIサービス。JWT認証とRedisキャッシングを実装。",
+      en: "A scalable REST API service built with Node.js, Express, and TypeScript. Implements JWT authentication and Redis caching.",
+    },
+    longDescription: {
+      ja: "Node.js、Express、TypeScript、MongoDB、Redisを使用して開発したRESTful APIサービスです。JWT認証システム、レート制限、データキャッシング、エラーハンドリングを実装。高負荷に対応できるスケーラブルな設計となっています。",
+      en: "A RESTful API service developed using Node.js, Express, TypeScript, MongoDB, and Redis. Implements JWT authentication system, rate limiting, data caching, and error handling. Features a scalable design capable of handling high loads.",
+    },
+    technologies: ["Node.js", "Express", "TypeScript", "MongoDB", "Redis", "JWT"],
+    link: "https://github.com/shigureeeeeeeeee/api-service",
+    github: "https://github.com/shigureeeeeeeeee/api-service",
+    category: "api",
+    status: "completed",
   },
 ];

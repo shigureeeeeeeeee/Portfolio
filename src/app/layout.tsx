@@ -1,10 +1,20 @@
 import type { Metadata } from "next"; // Next.jsのメタデータ型をインポート
-import { Inter } from "next/font/google"; // Google FontsからInterフォントをインポート
+import { Inter, Outfit } from "next/font/google"; // Google FontsからInterとOutfitフォントをインポート
 import "./globals.css"; // グローバルCSSスタイルをインポート
 import { LanguageProvider } from "../contexts/LanguageContext";
 
-// Interフォントを設定
-const inter = Inter({ subsets: ["latin"] });
+// フォントを設定
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const outfit = Outfit({ 
+  subsets: ["latin"],
+  variable: '--font-outfit',
+  display: 'swap',
+});
 
 // メタデータの定義
 export const metadata: Metadata = {
@@ -20,11 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {" "}
-      {/* HTMLの言語属性を設定 */}
-      <body className={inter.className}>
-        {" "}
-        {/* フォントを適用 */}
+      <body className={`${inter.variable} ${outfit.variable} font-sans`}>
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>

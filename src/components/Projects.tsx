@@ -3,56 +3,68 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "../hooks/useInView";
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import Image from "next/image";
-import { projects, Project } from "../data/projects";
+import { projects as staticProjects, Project } from "../data/projects";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/data/translations";
+import ProjectCard from "./ProjectCard";
+import ProjectFilters, { FilterCategory } from "./ProjectFilters";
+import { fetchGitHubProjects, GitHubProject } from "@/lib/github";
 
-// 画像の最適化設定
-const imageLoader = ({
-  src,
-  width,
-  quality = 75,
-}: {
-  src: string;
-  width: number;
-  quality?: number;
-}) => {
-  return `${src}?w=${width}&q=${quality}`;
-};
 
 const Projects: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { threshold: 0.1 });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>('all');
+  const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { language } = useLanguage();
 
+  // GitHubからプロジェクトを取得
   useEffect(() => {
-    const preloadImages = async () => {
+    const loadProjects = async () => {
       try {
-        await Promise.all(
-          projects.map(
-            (project) =>
-              new Promise<void>((resolve, reject) => {
-                const img = new window.Image();
-                img.src = project.image;
-                img.onload = () => resolve();
-                img.onerror = reject;
-              })
-          )
-        );
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Failed to preload images:", error);
+        setIsLoading(true);
+        const githubProjects = await fetchGitHubProjects();
+        
+        if (githubProjects.length === 0) {
+          // GitHubから取得できない場合は静的データを使用
+          console.log('No projects from GitHub, using static data');
+          setProjects(staticProjects);
+        } else {
+          // GitHubProjectをProjectに変換
+          const convertedProjects: Project[] = githubProjects.map(gp => ({
+            id: gp.id,
+            title: gp.title,
+            description: gp.description,
+            longDescription: gp.longDescription,
+            technologies: gp.technologies,
+            link: gp.link,
+            github: gp.github,
+            category: gp.category,
+            status: gp.status,
+            featured: gp.featured
+          }));
+          setProjects(convertedProjects);
+        }
+      } catch (err) {
+        console.error('Error loading projects from GitHub:', err);
+        // エラー時は静的データを使用
+        setProjects(staticProjects);
+      } finally {
         setIsLoading(false);
       }
     };
 
-    preloadImages();
-  }, []);
+    loadProjects();
+  }, [language]);
+
+  // フィルタリングされたプロジェクト
+  const filteredProjects = projects.filter(project => 
+    activeFilter === 'all' || project.category === activeFilter
+  );
 
   return (
     <section
@@ -63,38 +75,99 @@ const Projects: React.FC = () => {
       aria-label="Projects Section"
     >
       <div className="container mx-auto px-4 relative z-10">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-16 text-gradient"
+        <motion.div
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          {translations[language].projects.title}
-        </motion.h2>
+          <h2 className="text-4xl font-bold mb-4 text-gradient">
+            {translations[language].projects.title}
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
+            {language === 'ja' 
+              ? 'さまざまなカテゴリのプロジェクトをご覧ください。フィルターを使用して特定の技術分野に絞り込むことができます。' 
+              : 'Explore projects across various categories. Use filters to narrow down to specific technology areas.'}
+          </p>
+        </motion.div>
 
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          role="list"
-          aria-label="Project List"
+        {/* フィルター */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {!isLoading &&
-            projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                }
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                role="listitem"
-              >
+          <ProjectFilters 
+            activeFilter={activeFilter} 
+            onFilterChange={setActiveFilter} 
+          />
+        </motion.div>
+
+        {/* ローディング状態 */}
+        {isLoading && (
+          <motion.div
+            className="text-center py-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+            <p className="text-gray-400 mt-4">
+              {language === 'ja' ? 'プロジェクトを読み込み中...' : 'Loading projects...'}
+            </p>
+          </motion.div>
+        )}
+
+        {/* エラー状態 */}
+        {error && !isLoading && (
+          <motion.div
+            className="text-center py-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <p className="text-red-400 text-lg">{error}</p>
+          </motion.div>
+        )}
+
+        {/* プロジェクトグリッド */}
+        {!isLoading && !error && (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeFilter}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              role="list"
+              aria-label="Project List"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {filteredProjects.map((project, index) => (
                 <ProjectCard
+                  key={project.id}
                   project={project}
                   setSelectedProject={setSelectedProject}
+                  index={index}
                 />
-              </motion.div>
-            ))}
-        </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        )}
+
+        {/* プロジェクトが見つからない場合 */}
+        {!isLoading && !error && filteredProjects.length === 0 && (
+          <motion.div
+            className="text-center py-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <p className="text-gray-400 text-lg">
+              {language === 'ja' 
+                ? 'このカテゴリにはプロジェクトがありません。' 
+                : 'No projects found in this category.'}
+            </p>
+          </motion.div>
+        )}
 
         <AnimatePresence>
           {selectedProject && (
@@ -109,85 +182,6 @@ const Projects: React.FC = () => {
   );
 };
 
-interface ProjectCardProps {
-  project: Project;
-  setSelectedProject: (project: Project) => void;
-}
-
-const ProjectCard: React.FC<ProjectCardProps> = ({
-  project,
-  setSelectedProject,
-}) => {
-  const { language } = useLanguage();
-
-  return (
-    <div
-      role="button"
-      tabIndex={0}
-      aria-label={`View details for ${project.title[language]}`}
-      onKeyPress={(e: React.KeyboardEvent) => {
-        if (e.key === "Enter") setSelectedProject(project);
-      }}
-    >
-      <CardContainer className="inter-var">
-        <CardBody className="relative group/card h-[400px] w-full rounded-xl p-6 glass-card">
-          <CardItem translateZ="100" className="w-full mb-4">
-            <div className="relative w-full h-48 rounded-xl overflow-hidden">
-              <Image
-                src={project.image}
-                layout="fill"
-                objectFit="cover"
-                className="group-hover/card:scale-110 transition-transform duration-500"
-                alt={`Screenshot of ${project.title[language]}`}
-                loading="lazy"
-                quality={75}
-              />
-            </div>
-          </CardItem>
-
-          <CardItem
-            translateZ="50"
-            className="text-2xl font-bold text-gradient-static mb-2"
-            as="h3"
-          >
-            {project.title[language]}
-          </CardItem>
-
-          <CardItem
-            as="p"
-            translateZ="60"
-            className="text-sm text-gray-300 line-clamp-2 mb-4"
-          >
-            {project.description[language]}
-          </CardItem>
-
-          <div className="flex justify-between items-center mt-auto">
-            <CardItem
-              translateZ={20}
-              as="button"
-              className="px-4 py-2 rounded-xl glass-effect text-sm font-bold hover-lift focus:outline-none focus:ring-2 focus:ring-purple-500"
-              onClick={() => setSelectedProject(project)}
-              aria-label={`View details for ${project.title[language]}`}
-            >
-              {translations[language].projects.viewDetails}
-            </CardItem>
-            <CardItem
-              translateZ={20}
-              as="a"
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-xl glass-effect hover-lift focus:outline-none focus:ring-2 focus:ring-purple-500"
-              aria-label={`View GitHub repository for ${project.title[language]}`}
-            >
-              <FiGithub className="w-5 h-5" aria-hidden="true" />
-            </CardItem>
-          </div>
-        </CardBody>
-      </CardContainer>
-    </div>
-  );
-};
 
 interface ProjectModalProps {
   project: Project;

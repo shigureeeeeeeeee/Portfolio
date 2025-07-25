@@ -1,13 +1,17 @@
 "use client";
 
-import { Skills } from "@/components/Skills";
+import { MinimalSkills } from "@/components/MinimalSkills";
 import Hero from "@/components/Hero";
-import Projects from "@/components/Projects";
-import Footer from "@/components/Footer";
-import AboutMe from "@/components/AboutMe";
+import { MinimalProjects } from "@/components/MinimalProjects";
+import { MinimalContact } from "@/components/MinimalContact";
+import { MinimalAboutMe } from "@/components/MinimalAboutMe";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import ScrollProgress from "@/components/ScrollProgress";
+import { FloatingParticles, WaveBackground } from "@/components/ParallaxBackground";
+import { SectionTransition, StaggerContainer } from "@/components/PageTransition";
+import { Enhanced3DCard, MagneticButton, FloatingElement } from "@/components/Enhanced3DEffects";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -28,12 +32,21 @@ export default function Home() {
 
   return (
     <>
+      {/* スクロールプログレス */}
+      <ScrollProgress />
+      
       <Header />
       <main className="relative min-h-screen overflow-hidden">
         {/* 動的な背景効果 */}
         <div className="fixed inset-0 bg-gradient-to-b from-purple-900/30 via-background to-background/95 animated-gradient-bg">
           {/* グリッドパターン */}
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px] opacity-25" />
+          
+          {/* 浮遊パーティクル */}
+          <FloatingParticles />
+          
+          {/* 波背景 */}
+          <WaveBackground />
 
           {/* マウス追従グラデーション */}
           <motion.div
@@ -133,46 +146,35 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, ease: [0.45, 0, 0.55, 1] }}
         >
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.45, 0, 0.55, 1] }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <Hero />
-          </motion.div>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.45, 0, 0.55, 1], delay: 0.2 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <AboutMe />
-          </motion.div>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.45, 0, 0.55, 1], delay: 0.3 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <Skills />
-          </motion.div>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.45, 0, 0.55, 1], delay: 0.4 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <Projects />
-          </motion.div>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.45, 0, 0.55, 1], delay: 0.5 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <Footer />
-          </motion.div>
+          <SectionTransition>
+            <div id="hero">
+              <Hero />
+            </div>
+          </SectionTransition>
+          
+          <SectionTransition delay={0.2}>
+            <div id="about">
+              <MinimalAboutMe />
+            </div>
+          </SectionTransition>
+          
+          <SectionTransition delay={0.3}>
+            <div id="skills">
+              <MinimalSkills />
+            </div>
+          </SectionTransition>
+          
+          <SectionTransition delay={0.4}>
+            <div id="projects">
+              <MinimalProjects />
+            </div>
+          </SectionTransition>
+          
+          <SectionTransition delay={0.5}>
+            <div id="contact">
+              <MinimalContact />
+            </div>
+          </SectionTransition>
         </motion.div>
       </main>
     </>
