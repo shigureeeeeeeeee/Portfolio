@@ -3,29 +3,31 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "NODE_OPTIONS=\"--no-warnings\" next dev",
-        "build": "NODE_OPTIONS=\"--no-warnings\" next build",
-        "start": "NODE_OPTIONS=\"--no-warnings\" next start",
-        "lint": "next lint",
-        "deploy": "npm run build && npm run export && touch out/.nojekyll && git add out && git commit -m 'Deploy' && git push origin `git subtree split --prefix out main`:gh-pages --force"
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "eslint src",
+        "deploy": "npm run build && touch out/.nojekyll && git add out && git commit -m 'Deploy' && git push origin `git subtree split --prefix out main`:gh-pages --force"
     },
     "dependencies": {
-        "@tabler/icons-react": "^3.6.0",
         "clsx": "^2.1.1",
-        "framer-motion": "^11.3.21",
-        "next": "14.2.4",
-        "react": "^18",
-        "react-dom": "^18",
-        "react-icons": "^5.2.1",
-        "tailwind-merge": "^2.4.0",
-        "tailwindcss-animate": "^1.0.7"
+        "framer-motion": "^12.42.2",
+        "lucide-react": "^1.24.0",
+        "next": "^16.2.10",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7",
+        "react-icons": "^5.7.0",
+        "tailwind-merge": "^3.6.0"
     },
     "devDependencies": {
-        "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
+        "@tailwindcss/postcss": "^4.3.2",
+        "@types/node": "^26.1.1",
+        "@types/react": "^19.2.17",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^9.39.4",
+        "eslint-config-next": "^16.2.10",
         "postcss": "^8",
-        "tailwindcss": "^3.4.1",
-        "typescript": "^5"
+        "tailwindcss": "^4.3.2",
+        "typescript": "^5.9.3"
     }
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio - Loading</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#1173d4",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101922",
+          },
+          fontFamily: {
+            "display": ["Inter"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-white font-display">
+<div class="relative flex h-screen w-full flex-col items-center justify-center bg-white overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="relative flex items-center justify-center">
+<div class="absolute h-1 w-16 bg-gray-800 animate-[spin-right_2s_ease-in-out_forwards]"></div>
+<div class="absolute h-1 w-16 bg-gray-800 animate-[spin-left_2s_ease-in-out_forwards]"></div>
+<div class="absolute h-16 w-1 bg-gray-800 animate-[spin-up_2s_ease-in-out_forwards]"></div>
+<div class="absolute h-16 w-1 bg-gray-800 animate-[spin-down_2s_ease-in-out_forwards]"></div>
+<style>
+          @keyframes spin-right {
+            0% { transform: translateX(-100px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(0) rotate(360deg); opacity: 0;}
+          }
+          @keyframes spin-left {
+            0% { transform: translateX(100px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(0) rotate(-360deg); opacity: 0;}
+          }
+           @keyframes spin-up {
+            0% { transform: translateY(100px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(0) rotate(-360deg); opacity: 0;}
+          }
+           @keyframes spin-down {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(0) rotate(360deg); opacity: 0;}
+          }
+          @keyframes fade-in {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+          }
+           @keyframes fade-out {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+          }
+          .animate-fade-in-name {
+            animation: fade-in 1s ease-in-out 1.5s forwards;
+          }
+          .animate-fade-out-all {
+            animation: fade-out 1s ease-in-out 3.5s forwards;
+          }
+        </style>
+</div>
+<div class="absolute animate-fade-in-name opacity-0 animate-fade-out-all">
+<h1 class="text-5xl font-bold text-gray-800">Your Name</h1>
+</div>
+</div>
+<div class="absolute bottom-10 w-full px-10 animate-fade-out-all">
+<div class="layout-content-container mx-auto flex max-w-[960px] flex-1 flex-col">
+<div class="flex flex-col gap-3">
+<div class="rounded-full bg-gray-200">
+<div class="h-2 rounded-full bg-gray-800" style="width: 100%; animation: load 4.5s linear forwards;"></div>
+<style>
+              @keyframes load {
+                0% { width: 0%; }
+                100% { width: 100%; }
+              }
+             </style>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

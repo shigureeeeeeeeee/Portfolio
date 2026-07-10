@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skillset Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "background": "#F5F5F5", // Off-white
+            "text-primary": "#1A1A1A", // Dark Gray
+            "text-secondary": "#6B7280", // Medium Gray
+            "border-color": "#E5E7EB", // Light Gray
+            "accent": "#374151", // Dark Gray
+            "accent-hover": "#1F2937", // Even Darker Gray
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .skill-bar-fill {
+      animation: fill-bar 2s ease-out forwards;
+    }
+    @keyframes fill-bar {
+      from {
+        width: 0%;
+      }
+    }
+    .constellation-map {
+      position: relative;
+      height: 400px;overflow: hidden;
+      background-color: #FFFFFF;
+      border: 1px solid #E5E7EB;
+    }
+    .skill-node {
+      position: absolute;
+      border-radius: 9999px;
+      background-color: #1A1A1A;display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;font-family: 'Inter',
+        sans-serif;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1),
+        0 0 25px rgba(0, 0, 0, 0.05);
+      animation: pulse 3s infinite ease-in-out;
+      border: 2px solid #1A1A1A;
+    }
+    .skill-node:hover {
+      animation-play-state: paused;
+      transform: scale(1.15);
+      z-index: 10;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2),
+        0 0 40px rgba(0, 0, 0, 0.15);
+    }
+    .skill-node.proficient {
+      width: 100px;
+      height: 100px;
+      font-size: 14px;
+    }
+    .skill-node.experienced {
+      width: 80px;
+      height: 80px;
+      font-size: 12px;
+    }
+    .skill-node.familiar {
+      width: 60px;
+      height: 60px;
+      font-size: 10px;
+    }
+    .skill-line {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.2);height: 1px;
+      transform-origin: 0 0;
+      z-index: -1;
+      animation: draw-line 3s ease-out forwards;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 10px 15px rgba(0, 0, 0, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      }
+    }
+    @keyframes draw-line {
+      from {
+        width: 0;
+      }
+      to {}
+    }
+  </style>
+</head>
+<body class="bg-background font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-color px-4 md:px-10 py-3">
+<div class="flex items-center gap-4 text-text-primary">
+<div class="size-6 text-text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clipPath id="clip0_6_319">
+<rect fill="white" height="48" width="48"></rect>
+</clipPath>
+</defs>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Portfolio</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-sm font-medium leading-normal text-text-primary hover:text-text-secondary" href="#">Home</a>
+<a class="text-sm font-medium leading-normal text-text-primary hover:text-text-secondary" href="#">About</a>
+<a class="text-sm font-bold leading-normal text-text-primary" href="#">Skills</a>
+<a class="text-sm font-medium leading-normal text-text-primary hover:text-text-secondary" href="#">Projects</a>
+<a class="text-sm font-medium leading-normal text-text-primary hover:text-text-secondary" href="#">Contact</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-10 px-4 bg-accent text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-accent-hover transition-colors">
+<span class="truncate">Download CV</span>
+</button>
+</div>
+<button class="md:hidden flex items-center justify-center size-10 text-text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="flex-1 p-4 md:p-6 lg:p-10">
+<div class="flex flex-wrap justify-between gap-6 p-4">
+<div class="flex min-w-72 flex-col gap-3">
+<p class="text-4xl font-black leading-tight tracking-[-0.033em] text-text-primary">My Skillset</p>
+<p class="text-base font-normal leading-normal text-text-secondary">
+                A visual representation of my skills and expertise, brought to life with unique animations and data visualizations. Interact with the elements to learn more.
+              </p>
+</div>
+</div>
+<div class="pb-3 mt-8">
+<div class="flex border-b border-border-color px-4 gap-8 overflow-x-auto">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-accent text-text-primary pb-[13px] pt-4 whitespace-nowrap" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Constellation Map</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary pb-[13px] pt-4 whitespace-nowrap hover:text-text-primary hover:border-accent" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Programming Languages</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary pb-[13px] pt-4 whitespace-nowrap hover:text-text-primary hover:border-accent" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Frameworks &amp; Libraries</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary pb-[13px] pt-4 whitespace-nowrap hover:text-text-primary hover:border-accent" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Design Tools</p>
+</a>
+</div>
+</div>
+<div class="flex flex-wrap gap-8 px-4 py-10 rounded-lg my-6 relative constellation-map">
+<div class="skill-node proficient" style="top: 20%; left: 30%;">JavaScript</div>
+<div class="skill-node proficient" style="top: 50%; left: 60%;">React</div>
+<div class="skill-node experienced" style="top: 70%; left: 25%;">Python</div>
+<div class="skill-node experienced" style="top: 35%; left: 80%;">Figma</div>
+<div class="skill-node familiar" style="top: 15%; left: 5%;">C++</div>
+<div class="skill-node familiar" style="top: 80%; left: 75%;">Vue.js</div>
+<div class="skill-line" style="top: calc(20% + 50px); left: calc(30% + 50px); width: 250px; transform: rotate(45deg);"></div>
+<div class="skill-line" style="top: calc(20% + 50px); left: calc(30% + 50px); width: 250px; transform: rotate(140deg);"></div>
+<div class="skill-line" style="top: calc(50% + 40px); left: calc(60% + 40px); width: 180px; transform: rotate(115deg);"></div>
+<div class="skill-line" style="top: calc(70% + 40px); left: calc(25% + 40px); width: 350px; transform: rotate(-5deg);"></div>
+<div class="skill-line" style="top: calc(35% + 40px); left: calc(80% + 40px); width: 200px; transform: rotate(145deg);"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 py-6">
+<div class="flex flex-col gap-6 p-6 rounded-lg bg-white shadow-sm border border-border-color">
+<h3 class="text-xl font-bold text-text-primary">Programming Languages</h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex gap-4 justify-between">
+<p class="text-base font-medium text-text-primary">JavaScript</p>
+<p class="text-sm font-normal text-text-secondary">Proficient</p>
+</div>
+<div class="rounded-full bg-border-color h-2">
+<div class="h-2 rounded-full bg-accent skill-bar-fill" style="width: 90%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex gap-4 justify-between">
+<p class="text-base font-medium text-text-primary">Python</p>
+<p class="text-sm font-normal text-text-secondary">Experienced</p>
+</div>
+<div class="rounded-full bg-border-color h-2">
+<div class="h-2 rounded-full bg-accent skill-bar-fill" style="width: 75%; animation-delay: 0.2s;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex gap-4 justify-between">
+<p class="text-base font-medium text-text-primary">C++</p>
+<p class="text-sm font-normal text-text-secondary">Familiar</p>
+</div>
+<div class="rounded-full bg-border-color h-2">
+<div class="h-2 rounded-full bg-accent skill-bar-fill" style="width: 50%; animation-delay: 0.4s;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6 p-6 rounded-lg bg-white shadow-sm border border-border-color">
+<h3 class="text-xl font-bold text-text-primary">Frameworks &amp; Libraries</h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex gap-4 justify-between">
+<p class="text-base font-medium text-text-primary">React</p>
+<p class="text-sm font-normal text-text-secondary">Proficient</p>
+</div>
+<div class="rounded-full bg-border-color h-2">
+<div class="h-2 rounded-full bg-accent skill-bar-fill" style="width: 95%; animation-delay: 0.6s;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex gap-4 justify-between">
+<p class="text-base font-medium text-text-primary">Vue.js</p>
+<p class="text-sm font-normal text-text-secondary">Familiar</p>
+</div>
+<div class="rounded-full bg-border-color h-2">
+<div class="h-2 rounded-full bg-accent skill-bar-fill" style="width: 60%; animation-delay: 0.8s;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex gap-4 justify-between">
+<p class="text-base font-medium text-text-primary">Django</p>
+<p class="text-sm font-normal text-text-secondary">Experienced</p>
+</div>
+<div class="rounded-full bg-border-color h-2">
+<div class="h-2 rounded-full bg-accent skill-bar-fill" style="width: 70%; animation-delay: 1s;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div></body></html>

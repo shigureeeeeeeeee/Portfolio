@@ -12,20 +12,23 @@ interface Translation {
     contact: string;
   };
   hero: {
-    welcome: string;
+    greeting: string;
+    role: string;
     description: string;
+    tagline: string;
     viewProjects: string;
+    contactMe: string;
   };
   about: {
     title: string;
+    heading: string;
     profile: {
       paragraphs: string[];
     };
-    tabs: {
-      profile: string;
+    labels: {
+      experience: string;
       education: string;
       interests: string;
-      experience: string;
     };
     education: string[];
     interests: string[];
@@ -37,8 +40,9 @@ interface Translation {
   };
   skills: {
     title: string;
+    heading: string;
+    description: string;
     categories: {
-      all: string;
       frontend: string;
       backend: string;
       tools: string;
@@ -46,18 +50,20 @@ interface Translation {
   };
   projects: {
     title: string;
-    viewDetails: string;
-    viewGithub: string;
+    heading: string;
+    description: string;
     viewSite: string;
-    close: string;
-    technologies: string;
+    viewGithub: string;
+  };
+  contact: {
+    title: string;
+    heading: string;
+    description: string;
+    emailCta: string;
+    githubCta: string;
   };
   footer: {
-    navigation: string;
-    contact: string;
-    social: string;
-    copied: string;
-    copyFailed: string;
+    tagline: string;
   };
 }
 
@@ -71,12 +77,17 @@ export const translations: { [key: string]: Translation } = {
       contact: "お問い合わせ",
     },
     hero: {
-      welcome: "ようこそ!",
+      greeting: "こんにちは、Shigure です",
+      role: "Web Developer / AI Enthusiast",
       description: "Web開発とAI技術に情熱を持つ開発者です",
+      tagline:
+        "Next.js と TypeScript を軸に、AI を取り入れたプロダクトづくりに取り組んでいます。函館で情報系を学ぶ大学生です。",
       viewProjects: "プロジェクトを見る",
+      contactMe: "お問い合わせ",
     },
     about: {
-      title: "自己紹介",
+      title: "about",
+      heading: "自己紹介",
       profile: {
         paragraphs: [
           "はじめまして！函館で情報系の勉強をしている大学生です。",
@@ -84,11 +95,10 @@ export const translations: { [key: string]: Translation } = {
           "新しい技術を学ぶことが大好きで、常に最新のトレンドをキャッチアップしています。",
         ],
       },
-      tabs: {
-        profile: "プロフィール",
-        education: "学歴",
-        interests: "興味",
+      labels: {
         experience: "経験",
+        education: "学歴",
+        interests: "興味分野",
       },
       education: [
         "2022 - 公立はこだて未来大学 - 情報システムコース",
@@ -134,28 +144,34 @@ export const translations: { [key: string]: Translation } = {
       },
     },
     skills: {
-      title: "スキル",
+      title: "skills",
+      heading: "スキル",
+      description:
+        "普段の開発で使っている技術スタックです。プロジェクトに合わせて必要なツールを選び、学びながら形にしています。",
       categories: {
-        all: "すべて",
         frontend: "フロントエンド",
         backend: "バックエンド",
         tools: "開発ツール",
       },
     },
     projects: {
-      title: "プロジェクト",
-      viewDetails: "詳細を見る",
-      viewGithub: "GitHubを見る",
+      title: "projects",
+      heading: "プロジェクト",
+      description:
+        "これまでに制作した主なプロジェクトです。設計から実装・デプロイまで一貫して取り組んでいます。",
       viewSite: "サイトを見る",
-      close: "閉じる",
-      technologies: "使用技術：",
+      viewGithub: "GitHub",
+    },
+    contact: {
+      title: "contact",
+      heading: "お問い合わせ",
+      description:
+        "お仕事のご相談や技術の話など、お気軽にご連絡ください。通常 1〜2 営業日以内に返信しています。",
+      emailCta: "メールを送る",
+      githubCta: "GitHub を見る",
     },
     footer: {
-      navigation: "ナビゲーション",
-      contact: "お問い合わせ",
-      social: "ソーシャル",
-      copied: "コピーしました！",
-      copyFailed: "コピーに失敗しました。もう一度お試しください。",
+      tagline: "Next.js と Tailwind CSS で構築したポートフォリオです。",
     },
   },
   en: {
@@ -167,13 +183,18 @@ export const translations: { [key: string]: Translation } = {
       contact: "Contact",
     },
     hero: {
-      welcome: "Welcome!",
+      greeting: "Hi, I'm Shigure",
+      role: "Web Developer / AI Enthusiast",
       description:
         "A passionate developer focused on Web Development and AI Technology",
+      tagline:
+        "I build products with Next.js and TypeScript, exploring how AI can improve everyday experiences. Currently studying Information Systems in Hakodate.",
       viewProjects: "View Projects",
+      contactMe: "Contact Me",
     },
     about: {
-      title: "About Me",
+      title: "about",
+      heading: "About Me",
       profile: {
         paragraphs: [
           "Hello! I'm a university student studying Information Systems in Hakodate.",
@@ -181,11 +202,10 @@ export const translations: { [key: string]: Translation } = {
           "I love learning new technologies and always keep up with the latest trends.",
         ],
       },
-      tabs: {
-        profile: "Profile",
+      labels: {
+        experience: "Experience",
         education: "Education",
         interests: "Interests",
-        experience: "Experience",
       },
       education: [
         "2022 - Future University Hakodate - Information Systems Course",
@@ -233,28 +253,34 @@ export const translations: { [key: string]: Translation } = {
       },
     },
     skills: {
-      title: "Skills",
+      title: "skills",
+      heading: "Skills",
+      description:
+        "The stack I reach for in day-to-day development. I pick the right tool for each project and keep learning as I build.",
       categories: {
-        all: "All",
         frontend: "Frontend",
         backend: "Backend",
         tools: "Tools",
       },
     },
     projects: {
-      title: "Projects",
-      viewDetails: "View Details",
-      viewGithub: "View GitHub",
+      title: "projects",
+      heading: "Projects",
+      description:
+        "Selected works I have built, covering everything from design to implementation and deployment.",
       viewSite: "Visit Site",
-      close: "Close",
-      technologies: "Technologies Used:",
+      viewGithub: "GitHub",
+    },
+    contact: {
+      title: "contact",
+      heading: "Get In Touch",
+      description:
+        "Feel free to reach out about work, collaborations, or just to talk tech. I usually reply within one or two business days.",
+      emailCta: "Send an Email",
+      githubCta: "View GitHub",
     },
     footer: {
-      navigation: "Navigation",
-      contact: "Contact",
-      social: "Social",
-      copied: "Copied!",
-      copyFailed: "Failed to copy. Please try again.",
+      tagline: "Built with Next.js and Tailwind CSS.",
     },
   },
 };

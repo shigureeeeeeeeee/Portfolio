@@ -1,205 +1,82 @@
 # ポートフォリオウェブサイト | Portfolio Website
 
-## 📝 概要 | Overview
+## 概要 | Overview
 
-### 🇯🇵 日本語
+### 日本語
 
-このリポジトリには、私の個人ポートフォリオウェブサイトのソースコードが含まれています。モダンな技術スタックを活用し、視覚的に魅力的でインタラクティブな体験を提供することを目指しています。サイトには私のスキル、プロジェクト、および経歴が詳細に紹介されています。
+私の個人ポートフォリオサイトのソースコードです。ダーク基調のテック系デザインで、スキル・プロジェクト・経歴を日英2言語で紹介しています。
 
-### 🇬🇧 English
+### English
 
-This repository contains the source code for my personal portfolio website. Built with a modern tech stack, it aims to provide a visually appealing and interactive experience. The site showcases my skills, projects, and background in detail.
+Source code for my personal portfolio website. A dark, tech-inspired design showcasing my skills, projects, and background in both Japanese and English.
 
-## ✨ 特徴 | Features
+## 特徴 | Features
 
-### 🇯🇵 日本語
+- **ダークテーマ**: zinc ベースの配色にシアンのアクセントを効かせたデザイン | Dark zinc-based theme with cyan accents
+- **多言語対応**: 日英切り替え（選択は localStorage に保存） | JA/EN switching persisted to localStorage
+- **1ページ構成**: スクロールスパイ付き固定ヘッダーでセクションを移動 | Single-page layout with a scroll-spy header
+- **アニメーション**: Framer Motion によるフェードイン・スキルバー演出 | Framer Motion driven reveal animations
+- **静的エクスポート**: GitHub Pages へ自動デプロイ | Static export deployed to GitHub Pages
 
-- **レスポンシブデザイン**: すべてのデバイスで最適な表示を実現
-- **インタラクティブなUI**: Framer Motionを使用した洗練されたアニメーション
-- **ダイナミックな背景効果**: 視覚的な魅力を高める背景アニメーション
-- **多言語対応**: 日本語と英語のコンテンツ切り替え機能
-- **プロジェクトショーケース**: 3Dカードエフェクトを用いたプロジェクト紹介
-- **スキル可視化**: インタラクティブなスキルレベル表示
-- **パフォーマンス最適化**: 画像の最適化とコード分割による高速読み込み
+## 技術スタック | Tech Stack
 
-### 🇬🇧 English
+- Next.js 16 (App Router, static export)
+- React 19
+- TypeScript
+- Tailwind CSS v4 (CSS-first configuration)
+- Framer Motion
+- lucide-react / react-icons
 
-- **Responsive Design**: Optimal viewing on all devices
-- **Interactive UI**: Refined animations using Framer Motion
-- **Dynamic Background Effects**: Animated backgrounds that enhance visual appeal
-- **Multilingual Support**: Content switching between Japanese and English
-- **Project Showcase**: Project presentations with 3D card effects
-- **Skills Visualization**: Interactive skill level displays
-- **Performance Optimization**: Fast loading through image optimization and code splitting
+## インストールと実行 | Installation and Running
 
-## 🛠 技術スタック | Tech Stack
-
-### 🇯🇵 日本語
-
-- **フロントエンド**:
-  - Next.js (React)
-  - TypeScript
-  - Tailwind CSS
-  - Framer Motion
-
-- **デプロイ**:
-  - Vercel
-
-### 🇬🇧 English
-
-- **Frontend**:
-  - Next.js (React)
-  - TypeScript
-  - Tailwind CSS
-  - Framer Motion
-
-- **Deployment**:
-  - Vercel
-
-## 🚀 インストールと実行 | Installation and Running
-
-### 🇯🇵 日本語
-
-1. リポジトリをクローンします:
 ```bash
 git clone https://github.com/shigureeeeeeeeee/Portfolio.git
-```
-
-2. プロジェクトディレクトリに移動します:
-```bash
 cd Portfolio
-```
-
-3. 依存関係をインストールします:
-```bash
 npm install
-```
-
-4. 開発サーバーを起動します:
-```bash
 npm run dev
 ```
 
-5. ブラウザで [http://localhost:3000](http://localhost:3000) を開きます。
+ブラウザで [http://localhost:3000](http://localhost:3000) を開きます。 | Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 🇬🇧 English
+### その他のコマンド | Other Commands
 
-1. Clone the repository:
-```bash
-git clone https://github.com/shigureeeeeeeeee/Portfolio.git
-```
+| コマンド | 内容 |
+| --- | --- |
+| `npm run build` | 本番ビルド（`out/` に静的エクスポート） |
+| `npm run start` | 本番ビルドのローカル確認 |
+| `npm run lint` | ESLint の実行 |
 
-2. Navigate to the project directory:
-```bash
-cd Portfolio
-```
+## デプロイ | Deployment
 
-3. Install dependencies:
-```bash
-npm install
-```
+`main` ブランチへの push をトリガーに、GitHub Actions（[.github/workflows/nextjs.yml](.github/workflows/nextjs.yml)）が `next build` で `out/` を生成し GitHub Pages へデプロイします。
 
-4. Start the development server:
-```bash
-npm run dev
-```
+Pushing to `main` triggers GitHub Actions to build the static export and deploy it to GitHub Pages.
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 📁 プロジェクト構造 | Project Structure
-
-### 🇯🇵 日本語
+## プロジェクト構造 | Project Structure
 
 ```
 Portfolio/
 ├── public/            # 静的ファイル（画像など）
-├── src/               # ソースコード
-│   ├── app/           # Next.jsのページコンポーネント
-│   ├── components/    # 再利用可能なUIコンポーネント
-│   ├── contexts/      # Reactコンテキスト（言語切り替えなど）
-│   ├── data/          # プロジェクトやスキルのデータ
-│   ├── hooks/         # カスタムReactフック
+├── src/
+│   ├── app/           # App Router（layout / page / globals.css）
+│   ├── sections/      # Hero, About, Skills, Projects, Contact
+│   ├── components/    # Header, LanguageToggle などの UI
+│   ├── contexts/      # LanguageContext（言語切り替え）
+│   ├── data/          # translations / skills / projects
+│   ├── styles/        # 共通レイアウト定数
 │   └── utils/         # ユーティリティ関数
-├── styles/            # グローバルスタイル
-├── next.config.mjs    # Next.js設定
-└── tailwind.config.ts # Tailwind CSS設定
+├── next.config.mjs    # Next.js 設定（output: 'export'）
+└── eslint.config.mjs  # ESLint 設定
 ```
 
-### 🇬🇧 English
+## カスタマイズ | Customization
 
-```
-Portfolio/
-├── public/            # Static files (images, etc.)
-├── src/               # Source code
-│   ├── app/           # Next.js page components
-│   ├── components/    # Reusable UI components
-│   ├── contexts/      # React contexts (language switching, etc.)
-│   ├── data/          # Project and skill data
-│   ├── hooks/         # Custom React hooks
-│   └── utils/         # Utility functions
-├── styles/            # Global styles
-├── next.config.mjs    # Next.js configuration
-└── tailwind.config.ts # Tailwind CSS configuration
-```
+コンテンツは `src/data` 内のファイルで管理しています。 | Content is managed in `src/data`.
 
-## 🌟 主要コンポーネント | Key Components
+- `projects.ts`: プロジェクト情報 | Project information
+- `skills.ts`: スキル情報 | Skill information
+- `translations.ts`: 日英翻訳データ | JA/EN translation data
 
-### 🇯🇵 日本語
-
-- **Header**: ナビゲーションと言語切り替え
-- **Hero**: 自己紹介とメインビジュアル
-- **AboutMe**: 経歴と詳細な自己紹介
-- **Skills**: スキルセットのビジュアル表示
-- **Projects**: プロジェクト作品のショーケース
-- **Footer**: 連絡先とソーシャルリンク
-
-### 🇬🇧 English
-
-- **Header**: Navigation and language switching
-- **Hero**: Self-introduction and main visual
-- **AboutMe**: Background and detailed self-introduction
-- **Skills**: Visual display of skill sets
-- **Projects**: Showcase of project works
-- **Footer**: Contact information and social links
-
-## 📝 カスタマイズ | Customization
-
-### 🇯🇵 日本語
-
-プロジェクトデータやスキルの情報は `src/data` ディレクトリ内のファイルで管理されています。自身の情報に合わせて以下のファイルを編集することで、サイトの内容をカスタマイズできます：
-
-- `projects.ts`: プロジェクト情報
-- `skills.ts`: スキル情報
-- `translations.ts`: 言語翻訳データ
-
-### 🇬🇧 English
-
-Project data and skill information are managed in files within the `src/data` directory. You can customize the site's content by editing the following files to match your information:
-
-- `projects.ts`: Project information
-- `skills.ts`: Skill information
-- `translations.ts`: Language translation data
-
-## 📄 ライセンス | License
-
-### 🇯🇵 日本語
-
-このプロジェクトはMITライセンスの下で公開されています。詳細については[LICENSE](LICENSE)ファイルを参照してください。
-
-### 🇬🇧 English
-
-This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## 📧 連絡先 | Contact
-
-### 🇯🇵 日本語
-
-質問や提案がありましたら、以下の方法でご連絡ください：
-
-- GitHub: [shigureeeeeeeeee](https://github.com/shigureeeeeeeeee)
-
-### 🇬🇧 English
-
-For questions or suggestions, please contact me through:
+## 連絡先 | Contact
 
 - GitHub: [shigureeeeeeeeee](https://github.com/shigureeeeeeeeee)

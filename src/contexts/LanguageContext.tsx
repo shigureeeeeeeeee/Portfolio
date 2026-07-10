@@ -1,8 +1,16 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type Language = "ja" | "en";
+
+const STORAGE_KEY = "portfolio-language";
 
 interface LanguageContextType {
   language: Language;
@@ -18,8 +26,21 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [language, setLanguage] = useState<Language>("ja");
 
+  useEffect(() => {
+    // SSR とのハイドレーション不一致を避けるため、保存済み言語はマウント後に反映する
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored === "ja" || stored === "en") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLanguage(stored);
+    }
+  }, []);
+
   const toggleLanguage = useCallback(() => {
-    setLanguage((prev) => (prev === "ja" ? "en" : "ja"));
+    setLanguage((prev) => {
+      const next = prev === "ja" ? "en" : "ja";
+      window.localStorage.setItem(STORAGE_KEY, next);
+      return next;
+    });
   }, []);
 
   return (

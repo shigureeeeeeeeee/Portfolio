@@ -1,182 +1,38 @@
 "use client";
 
-import { MinimalSkills } from "@/components/MinimalSkills";
-import Hero from "@/components/Hero";
-import { MinimalProjects } from "@/components/MinimalProjects";
-import { MinimalContact } from "@/components/MinimalContact";
-import { MinimalAboutMe } from "@/components/MinimalAboutMe";
-import Header from "@/components/Header";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import ScrollProgress from "@/components/ScrollProgress";
-import { FloatingParticles, WaveBackground } from "@/components/ParallaxBackground";
-import { SectionTransition, StaggerContainer } from "@/components/PageTransition";
-import { Enhanced3DCard, MagneticButton, FloatingElement } from "@/components/Enhanced3DEffects";
+import Header from "@/components/layout/Header";
+import { HeroSection } from "@/sections/HeroSection";
+import { AboutSection } from "@/sections/AboutSection";
+import { SkillsSection } from "@/sections/SkillsSection";
+import { ProjectsSection } from "@/sections/ProjectsSection";
+import { ContactSection } from "@/sections/ContactSection";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  const { language } = useLanguage();
 
   return (
-    <>
-      {/* スクロールプログレス */}
-      <ScrollProgress />
-      
+    <div className="relative">
       <Header />
-      <main className="relative min-h-screen overflow-hidden">
-        {/* 動的な背景効果 */}
-        <div className="fixed inset-0 bg-gradient-to-b from-purple-900/30 via-background to-background/95 animated-gradient-bg">
-          {/* グリッドパターン */}
-          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px] opacity-25" />
-          
-          {/* 浮遊パーティクル */}
-          <FloatingParticles />
-          
-          {/* 波背景 */}
-          <WaveBackground />
-
-          {/* マウス追従グラデーション */}
-          <motion.div
-            className="pointer-events-none fixed inset-0 z-30"
-            style={{
-              background: `
-                radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, 
-                  rgba(147, 51, 234, 0.15), 
-                  transparent 20%
-                ),
-                radial-gradient(800px circle at ${mousePosition.x}px ${mousePosition.y}px, 
-                  rgba(139, 92, 246, 0.1), 
-                  transparent 35%
-                ),
-                radial-gradient(1000px circle at ${mousePosition.x}px ${mousePosition.y}px, 
-                  rgba(167, 139, 250, 0.05), 
-                  transparent 45%
-                ),
-                radial-gradient(1200px circle at ${mousePosition.x}px ${mousePosition.y}px, 
-                  rgba(147, 51, 234, 0.02), 
-                  transparent 55%
-                )
-              `,
-              backgroundBlendMode: "screen",
-            }}
-          />
-
-          {/* アニメーションする背景要素 */}
-          <div className="absolute top-0 left-0 right-0 bottom-0 overflow-hidden">
-            {/* 浮遊する円形1 */}
-            <motion.div
-              className="absolute w-[1200px] h-[1200px] rounded-full bg-gradient-radial from-purple-500/15 via-violet-500/15 to-transparent blur-3xl"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, 50, 0],
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.4, 0.3],
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              }}
-              style={{ top: "-10%", left: "0%" }}
-            />
-
-            {/* 浮遊する円形2 */}
-            <motion.div
-              className="absolute w-[1000px] h-[1000px] rounded-full bg-gradient-radial from-violet-500/20 via-purple-500/20 to-transparent blur-3xl"
-              animate={{
-                x: [0, -80, 0],
-                y: [0, 80, 0],
-                scale: [1, 1.3, 1],
-                opacity: [0.2, 0.3, 0.2],
-              }}
-              transition={{
-                duration: 45,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              }}
-              style={{ top: "20%", right: "-5%" }}
-            />
-
-            {/* 浮遊する円形3 */}
-            <motion.div
-              className="absolute w-[1400px] h-[1400px] rounded-full bg-gradient-radial from-purple-600/20 via-violet-500/20 to-transparent blur-3xl"
-              animate={{
-                x: [0, 60, 0],
-                y: [0, -40, 0],
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.3, 0.2],
-              }}
-              transition={{
-                duration: 60,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              }}
-              style={{ bottom: "-10%", left: "10%" }}
-            />
-
-            {/* 追加の装飾要素 */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_200px,rgba(147,51,234,0.15),transparent)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_1000px_at_80%_50%,rgba(139,92,246,0.1),transparent)]" />
-          </div>
-
-          {/* グラデーションオーバーレイ */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/95 pointer-events-none" />
-        </div>
-
-        {/* コンテンツコンテナ */}
-        <motion.div
-          className="relative z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: [0.45, 0, 0.55, 1] }}
-        >
-          <SectionTransition>
-            <div id="hero">
-              <Hero />
-            </div>
-          </SectionTransition>
-          
-          <SectionTransition delay={0.2}>
-            <div id="about">
-              <MinimalAboutMe />
-            </div>
-          </SectionTransition>
-          
-          <SectionTransition delay={0.3}>
-            <div id="skills">
-              <MinimalSkills />
-            </div>
-          </SectionTransition>
-          
-          <SectionTransition delay={0.4}>
-            <div id="projects">
-              <MinimalProjects />
-            </div>
-          </SectionTransition>
-          
-          <SectionTransition delay={0.5}>
-            <div id="contact">
-              <MinimalContact />
-            </div>
-          </SectionTransition>
-        </motion.div>
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ContactSection />
       </main>
-    </>
+      <footer className="border-t border-white/10 px-4 py-8 md:px-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 text-center text-sm text-zinc-500 md:flex-row md:justify-between md:text-left">
+          <p>
+            <span className="font-mono text-zinc-400">
+              <span className="text-accent-400">~/</span>shigure
+            </span>{" "}
+            © {new Date().getFullYear()}
+          </p>
+          <p>{translations[language].footer.tagline}</p>
+        </div>
+      </footer>
+    </div>
   );
 }
