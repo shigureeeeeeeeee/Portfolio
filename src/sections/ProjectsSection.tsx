@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/data/translations";
-import { projects } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import {
   cardSurface,
   sectionBody,
@@ -16,7 +16,11 @@ import {
   sectionPadding,
 } from "@/styles/layout";
 
-export const ProjectsSection: React.FC = () => {
+interface ProjectsSectionProps {
+  projects: Project[];
+}
+
+export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
   const { language } = useLanguage();
   const projectsCopy = translations[language].projects;
 

@@ -17,6 +17,7 @@ Source code for my personal portfolio website. A dark, tech-inspired design show
 - **1ページ構成**: スクロールスパイ付き固定ヘッダーでセクションを移動 | Single-page layout with a scroll-spy header
 - **アニメーション**: Framer Motion によるフェードイン・スキルバー演出 | Framer Motion driven reveal animations
 - **静的エクスポート**: GitHub Pages へ自動デプロイ | Static export deployed to GitHub Pages
+- **GitHub連携**: プロフィールにピン留めした作品を毎日自動反映 | Daily sync of repositories pinned to the GitHub profile
 
 ## 技術スタック | Tech Stack
 
@@ -51,6 +52,12 @@ npm run dev
 `main` ブランチへの push をトリガーに、GitHub Actions（[.github/workflows/nextjs.yml](.github/workflows/nextjs.yml)）が `next build` で `out/` を生成し GitHub Pages へデプロイします。
 
 Pushing to `main` triggers GitHub Actions to build the static export and deploy it to GitHub Pages.
+
+GitHubプロフィールのピン留め作品は、毎日午前3時17分（日本時間）の定期ビルドでも更新されます。`Portfolio` リポジトリは作品一覧から自動的に除外されます。
+
+### GitHub APIの設定
+
+ピン留め作品を取得するには、GitHubプロフィールと公開リポジトリを読み取れる最小権限のPersonal Access Tokenを、リポジトリの `Settings` → `Secrets and variables` → `Actions` から `GITHUB_PROFILE_TOKEN` という名前で登録してください。トークンが未設定、またはAPI取得に失敗した場合は、`src/data/projects.ts` の静的データ（`Portfolio` を除く）を表示します。
 
 ## プロジェクト構造 | Project Structure
 
