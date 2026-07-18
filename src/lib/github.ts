@@ -34,6 +34,7 @@ interface GitHubGraphQLResponse<T> {
 }
 
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
+const GITHUB_PROFILE_REVALIDATE_SECONDS = 60 * 60;
 const GITHUB_USERNAME =
   process.env.GITHUB_USERNAME ??
   process.env.NEXT_PUBLIC_GITHUB_USERNAME ??
@@ -184,24 +185,22 @@ export async function fetchPinnedGitHubProjects(): Promise<Project[]> {
   }
 
   try {
-    const cacheKey =
-      process.env.GITHUB_PROFILE_CACHE_KEY ?? new Date().getTime().toString();
-    const response = await fetch(
-      `${GITHUB_GRAPHQL_URL}?build=${encodeURIComponent(cacheKey)}`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: PINNED_REPOSITORIES_QUERY,
-          variables: { login: GITHUB_USERNAME },
-        }),
-        cache: "force-cache",
-      }
-    );
+    const response = await fetch(GITHUB_GRAPHQL_URL, {
+      method: "POST",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: PINNED_REPOSITORIES_QUERY,
+        variables: { login: GITHUB_USERNAME },
+      }),
+      next: {
+        revalidate: GITHUB_PROFILE_REVALIDATE_SECONDS,
+        tags: ["github-pinned-repositories"],
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`GitHub GraphQL API returned ${response.status}.`);

@@ -8,21 +8,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Development
 - `npm run dev` - Start development server on localhost:3000
-- `npm run build` - Build for production (static export)
+- `npm run build` - Build for production
 - `npm run start` - Start production server
-- `npm run lint` - Run Next.js linter
-- `npm run deploy` - Deploy to GitHub Pages (builds, exports, and pushes to gh-pages branch)
+- `npm run lint` - Run ESLint for `src`
 
 ## Architecture Overview
 
-This is a modern Next.js 14 portfolio website built with TypeScript and configured for static export. The project uses a component-based architecture with the following key patterns:
+This is a modern Next.js 16 portfolio website built with TypeScript and deployed to Vercel. The project uses a component-based architecture with the following key patterns:
 
 ### Core Technologies
-- **Next.js 14** with App Router and static export configuration
+- **Next.js 16** with App Router and ISR
 - **TypeScript** for type safety
-- **Tailwind CSS** with custom animations and shadcn/ui components
+- **Tailwind CSS 4** with custom animations
 - **Framer Motion** for complex animations
-- **i18next** for Japanese/English language switching
+- **LanguageContext** for Japanese/English language switching
 
 ### Project Structure
 - `/src/app` - Next.js app directory with main layout and page
@@ -33,17 +32,15 @@ This is a modern Next.js 14 portfolio website built with TypeScript and configur
 - `/src/hooks` - Custom React hooks for viewport detection and click handling
 
 ### Key Architectural Decisions
-1. **Static Site Generation**: Configured with `output: 'export'` for deployment on static hosting
-2. **Client-Side Rendering**: Main page uses `"use client"` for interactive features
+1. **Incremental Static Regeneration**: The landing page revalidates hourly on Vercel so pinned GitHub repositories update without a redeploy
+2. **Server and Client Components**: The page fetches project data on the server while interactive sections use client components
 3. **Data Separation**: All content data is stored in `/src/data` files, making it easy to update without touching components
 4. **Responsive Design**: Mobile-first approach using Tailwind breakpoints
 5. **Performance**: Component-level code splitting and viewport-based animation triggers
 
 ### Important Configuration Files
-- `tailwind.config.ts` - Custom theme with animations, colors, and shadcn/ui integration
-- `next.config.mjs` - Static export configuration with image optimization disabled
+- `next.config.mjs` - Next.js configuration using Vercel-compatible defaults
 - `tsconfig.json` - Path alias `@/*` maps to `./src/*`
-- `components.json` - shadcn/ui component library configuration
 
 ### Component Architecture
 The site is built as a single-page application with smooth scroll sections:

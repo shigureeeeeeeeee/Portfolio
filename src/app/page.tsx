@@ -7,6 +7,8 @@ import { ProjectsSection } from "@/sections/ProjectsSection";
 import { ContactSection } from "@/sections/ContactSection";
 import { fetchPinnedGitHubProjects } from "@/lib/github";
 
+export const revalidate = 3600;
+
 export default async function Home() {
   const projects = await fetchPinnedGitHubProjects();
 

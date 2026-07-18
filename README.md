@@ -16,12 +16,12 @@ Source code for my personal portfolio website. A dark, tech-inspired design show
 - **多言語対応**: 日英切り替え（選択は localStorage に保存） | JA/EN switching persisted to localStorage
 - **1ページ構成**: スクロールスパイ付き固定ヘッダーでセクションを移動 | Single-page layout with a scroll-spy header
 - **アニメーション**: Framer Motion によるフェードイン・スキルバー演出 | Framer Motion driven reveal animations
-- **静的エクスポート**: GitHub Pages へ自動デプロイ | Static export deployed to GitHub Pages
-- **GitHub連携**: プロフィールにピン留めした作品を毎日自動反映 | Daily sync of repositories pinned to the GitHub profile
+- **Vercelデプロイ**: `main` ブランチへの push で自動デプロイ | Automatically deployed to Vercel from the `main` branch
+- **GitHub連携**: プロフィールにピン留めした作品をISRで自動反映 | Pinned GitHub repositories automatically refreshed with ISR
 
 ## 技術スタック | Tech Stack
 
-- Next.js 16 (App Router, static export)
+- Next.js 16 (App Router, ISR)
 - React 19
 - TypeScript
 - Tailwind CSS v4 (CSS-first configuration)
@@ -43,21 +43,23 @@ npm run dev
 
 | コマンド | 内容 |
 | --- | --- |
-| `npm run build` | 本番ビルド（`out/` に静的エクスポート） |
+| `npm run build` | 本番ビルド |
 | `npm run start` | 本番ビルドのローカル確認 |
 | `npm run lint` | ESLint の実行 |
 
 ## デプロイ | Deployment
 
-`main` ブランチへの push をトリガーに、GitHub Actions（[.github/workflows/nextjs.yml](.github/workflows/nextjs.yml)）が `next build` で `out/` を生成し GitHub Pages へデプロイします。
+VercelでこのGitHubリポジトリをImportすると、`main` ブランチへのpushをトリガーに自動デプロイされます。Framework Presetには`Next.js`を使用し、Build CommandとOutput DirectoryはVercelの初期値から変更しません。
 
-Pushing to `main` triggers GitHub Actions to build the static export and deploy it to GitHub Pages.
+Import this GitHub repository into Vercel to deploy automatically whenever changes are pushed to `main`. Use the `Next.js` framework preset and keep the default build and output settings.
 
-GitHubプロフィールのピン留め作品は、毎日午前3時17分（日本時間）の定期ビルドでも更新されます。`Portfolio` リポジトリは作品一覧から自動的に除外されます。
+GitHubプロフィールのピン留め作品はISRにより1時間ごとに再検証されるため、再デプロイなしで更新されます。期限切れ後の最初のアクセスではキャッシュ済みページを表示しながらバックグラウンドで更新し、それ以降のアクセスに最新内容を反映します。`Portfolio` リポジトリは作品一覧から自動的に除外されます。
 
 ### GitHub APIの設定
 
-ピン留め作品を取得するには、GitHubプロフィールと公開リポジトリを読み取れる最小権限のPersonal Access Tokenを、リポジトリの `Settings` → `Secrets and variables` → `Actions` から `GITHUB_PROFILE_TOKEN` という名前で登録してください。トークンが未設定、またはAPI取得に失敗した場合は、`src/data/projects.ts` の静的データ（`Portfolio` を除く）を表示します。
+ピン留め作品を取得するには、GitHubプロフィールと公開リポジトリを読み取れる最小権限のPersonal Access Tokenを、Vercelプロジェクトの `Settings` → `Environment Variables` に `GITHUB_PROFILE_TOKEN` という名前で登録してください。Production・Preview・Developmentのうち必要な環境を選び、設定後に再デプロイします。
+
+ユーザー名を変更する場合は、同じ画面で `GITHUB_USERNAME` も設定してください。未設定時は `shigureeeeeeeeee` を使用します。トークンが未設定、またはAPI取得に失敗した場合は、`src/data/projects.ts` の静的データ（`Portfolio` を除く）を表示します。ローカル開発では `.env.example` を `.env.local` にコピーして値を設定できます。
 
 ## プロジェクト構造 | Project Structure
 
@@ -72,7 +74,7 @@ Portfolio/
 │   ├── data/          # translations / skills / projects
 │   ├── styles/        # 共通レイアウト定数
 │   └── utils/         # ユーティリティ関数
-├── next.config.mjs    # Next.js 設定（output: 'export'）
+├── next.config.mjs    # Next.js 設定
 └── eslint.config.mjs  # ESLint 設定
 ```
 
