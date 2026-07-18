@@ -23,28 +23,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "1",
-    title: {
-      ja: "ポートフォリオサイト",
-      en: "Portfolio Website",
-    },
-    description: {
-      ja: "Next.js、TypeScript、Tailwind CSSを駆使した、インタラクティブで魅力的な個人ポートフォリオサイト。Framer Motionによるスムーズなアニメーションを実装。",
-      en: "An interactive and attractive personal portfolio website built with Next.js, TypeScript, and Tailwind CSS. Implemented smooth animations using Framer Motion.",
-    },
-    longDescription: {
-      ja: "Next.js、TypeScript、Tailwind CSSを使用して作成した個人ポートフォリオサイトです。アニメーションにはFramer Motionを使用し、インタラクティブな要素を追加しています。レスポンシブデザインにより、様々なデバイスで最適な表示を実現しています。",
-      en: "A personal portfolio website created using Next.js, TypeScript, and Tailwind CSS. Interactive elements are added using Framer Motion for animations. The responsive design ensures optimal display across various devices.",
-    },
-    image: "/img/portfolio.jpg",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    link: "https://portfolio-plum-phi-54.vercel.app",
-    github: "https://github.com/shigureeeeeeeeee/Portfolio",
-    category: "web",
-    status: "completed",
-    featured: true,
-  },
-  {
     id: "2",
     title: {
       ja: "ブログ作成アプリ",

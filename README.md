@@ -72,9 +72,8 @@ Portfolio/
 │   ├── components/    # Header, LanguageToggle などの UI
 │   ├── contexts/      # LanguageContext（言語切り替え）
 │   ├── data/          # translations / skills / projects
-│   ├── styles/        # 共通レイアウト定数
-│   └── utils/         # ユーティリティ関数
-├── next.config.mjs    # Next.js 設定
+│   ├── lib/           # GitHub API 連携
+│   └── styles/        # 共通レイアウト定数
 └── eslint.config.mjs  # ESLint 設定
 ```
 
