@@ -7,8 +7,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-
-type Language = "ja" | "en";
+import { MotionConfig } from "framer-motion";
+import type { Language } from "@/data/translations";
 
 const STORAGE_KEY = "portfolio-language";
 
@@ -35,6 +35,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
   const toggleLanguage = useCallback(() => {
     setLanguage((prev) => {
       const next = prev === "ja" ? "en" : "ja";
@@ -45,7 +49,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <LanguageContext.Provider value={{ language, toggleLanguage }}>
-      {children}
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
     </LanguageContext.Provider>
   );
 };

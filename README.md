@@ -1,34 +1,38 @@
-# ポートフォリオウェブサイト | Portfolio Website
+# Shigure — Software Engineer Portfolio
 
-## 概要 | Overview
+[公開サイトを見る](https://aboutme-shigure.vercel.app) · [View live site](https://aboutme-shigure.vercel.app)
 
-### 日本語
+Web、AI、Windowsネイティブ開発に取り組むShigureのポートフォリオです。採用担当者や開発者が、制作物の目的・担当範囲・技術的な工夫を短時間で確認できるように設計しています。
 
-私の個人ポートフォリオサイトのソースコードです。ダーク基調のテック系デザインで、スキル・プロジェクト・経歴を日英2言語で紹介しています。
+Shigure's software engineering portfolio, designed to show the context, responsibilities, and engineering decisions behind selected work across Web, AI, and native development.
 
-### English
+## 掲載プロジェクト | Selected work
 
-Source code for my personal portfolio website. A dark, tech-inspired design showcasing my skills, projects, and background in both Japanese and English.
+- **AIプログラミング学習支援システム** — Vue 3、FastAPI、Gemini、Ollamaを用いた卒業研究
+- **Abyss World** — Java 17とMinecraft Forgeによる大規模コンテンツMod
+- **Audio Switcher** — Core Audio APIを直接利用するC++17製Windows常駐アプリ
 
-## 特徴 | Features
+作品一覧は `src/data/projects.ts` を唯一の情報源としています。環境変数や外部APIの有無にかかわらず、ローカル、Preview、本番ですべて同じ内容を表示します。
 
-- **ダークテーマ**: zinc ベースの配色にシアンのアクセントを効かせたデザイン | Dark zinc-based theme with cyan accents
-- **多言語対応**: 日英切り替え（選択は localStorage に保存） | JA/EN switching persisted to localStorage
-- **1ページ構成**: スクロールスパイ付き固定ヘッダーでセクションを移動 | Single-page layout with a scroll-spy header
-- **アニメーション**: Framer Motion によるフェードイン・スキルバー演出 | Framer Motion driven reveal animations
-- **Vercelデプロイ**: `main` ブランチへの push で自動デプロイ | Automatically deployed to Vercel from the `main` branch
-- **GitHub連携**: プロフィールにピン留めした作品をISRで自動反映 | Pinned GitHub repositories automatically refreshed with ISR
+Project content is curated in `src/data/projects.ts` as the single source of truth, so local, preview, and production builds always render the same work.
 
-## 技術スタック | Tech Stack
+## 主な機能 | Highlights
 
-- Next.js 16 (App Router, ISR)
-- React 19
-- TypeScript
-- Tailwind CSS v4 (CSS-first configuration)
+- 日本語・英語切り替えと選択内容の保存
+- レスポンシブな1ページ構成とスクロールナビゲーション
+- `prefers-reduced-motion`に対応したアニメーション
+- セマンティックHTML、キーボードフォーカス、スキップリンク
+- OGP画像、構造化データ、sitemap、robots設定
+- App Routerによる静的生成
+
+## 技術スタック | Stack
+
+- Next.js 16 / React 19 / TypeScript
+- Tailwind CSS v4
 - Framer Motion
-- lucide-react / react-icons
+- Lucide React / React Icons
 
-## インストールと実行 | Installation and Running
+## ローカル実行 | Local development
 
 ```bash
 git clone https://github.com/shigureeeeeeeeee/Portfolio.git
@@ -37,54 +41,29 @@ npm install
 npm run dev
 ```
 
-ブラウザで [http://localhost:3000](http://localhost:3000) を開きます。 | Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-### その他のコマンド | Other Commands
+## 品質チェック | Quality checks
 
-| コマンド | 内容 |
+```bash
+npm run check
+npm run build
+```
+
+| Command | Purpose |
 | --- | --- |
-| `npm run build` | 本番ビルド |
-| `npm run start` | 本番ビルドのローカル確認 |
-| `npm run lint` | ESLint の実行 |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript type checking |
+| `npm run check` | Lint + type checking |
+| `npm run build` | Production build |
 
-## デプロイ | Deployment
+## コンテンツの更新 | Updating content
 
-VercelでこのGitHubリポジトリをImportすると、`main` ブランチへのpushをトリガーに自動デプロイされます。Framework Presetには`Next.js`を使用し、Build CommandとOutput DirectoryはVercelの初期値から変更しません。
+- `src/data/projects.ts` — project case studies
+- `src/data/skills.ts` — skills and project evidence
+- `src/data/translations.ts` — Japanese and English copy
 
-Import this GitHub repository into Vercel to deploy automatically whenever changes are pushed to `main`. Use the `Next.js` framework preset and keep the default build and output settings.
+## Contact
 
-GitHubプロフィールのピン留め作品はISRにより1時間ごとに再検証されるため、再デプロイなしで更新されます。期限切れ後の最初のアクセスではキャッシュ済みページを表示しながらバックグラウンドで更新し、それ以降のアクセスに最新内容を反映します。`Portfolio` リポジトリは作品一覧から自動的に除外されます。
-
-### GitHub APIの設定
-
-ピン留め作品を取得するには、GitHubプロフィールと公開リポジトリを読み取れる最小権限のPersonal Access Tokenを、Vercelプロジェクトの `Settings` → `Environment Variables` に `GITHUB_PROFILE_TOKEN` という名前で登録してください。Production・Preview・Developmentのうち必要な環境を選び、設定後に再デプロイします。
-
-ユーザー名を変更する場合は、同じ画面で `GITHUB_USERNAME` も設定してください。未設定時は `shigureeeeeeeeee` を使用します。トークンが未設定、またはAPI取得に失敗した場合は、`src/data/projects.ts` の静的データ（`Portfolio` を除く）を表示します。ローカル開発では `.env.example` を `.env.local` にコピーして値を設定できます。
-
-## プロジェクト構造 | Project Structure
-
-```
-Portfolio/
-├── public/            # 静的ファイル（画像など）
-├── src/
-│   ├── app/           # App Router（layout / page / globals.css）
-│   ├── sections/      # Hero, About, Skills, Projects, Contact
-│   ├── components/    # Header, LanguageToggle などの UI
-│   ├── contexts/      # LanguageContext（言語切り替え）
-│   ├── data/          # translations / skills / projects
-│   ├── lib/           # GitHub API 連携
-│   └── styles/        # 共通レイアウト定数
-└── eslint.config.mjs  # ESLint 設定
-```
-
-## カスタマイズ | Customization
-
-コンテンツは `src/data` 内のファイルで管理しています。 | Content is managed in `src/data`.
-
-- `projects.ts`: プロジェクト情報 | Project information
-- `skills.ts`: スキル情報 | Skill information
-- `translations.ts`: 日英翻訳データ | JA/EN translation data
-
-## 連絡先 | Contact
-
+- Email: [shigure.tk1090@gmail.com](mailto:shigure.tk1090@gmail.com)
 - GitHub: [shigureeeeeeeeee](https://github.com/shigureeeeeeeeee)

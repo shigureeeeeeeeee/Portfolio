@@ -1,22 +1,45 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-});
-
 export const metadata: Metadata = {
-  title: "Shigure | Portfolio",
+  metadataBase: new URL("https://aboutme-shigure.vercel.app"),
+  title: {
+    default: "Shigure | Software Engineer Portfolio",
+    template: "%s | Shigure",
+  },
   description:
-    "Portfolio of Shigure, a developer passionate about web development and AI.",
+    "Web、AI、Windowsネイティブ開発に取り組むShigureのポートフォリオ。卒業研究、Minecraft Mod、C++製Windowsツールの実装と技術的な工夫を紹介します。",
+  keywords: [
+    "Shigure",
+    "Software Engineer",
+    "Web Developer",
+    "AI",
+    "Next.js",
+    "TypeScript",
+    "FastAPI",
+    "C++",
+    "Portfolio",
+  ],
+  authors: [{ name: "Shigure", url: "https://github.com/shigureeeeeeeeee" }],
+  creator: "Shigure",
+  alternates: { canonical: "/" },
+  icons: { icon: "/img/icon.jpg", apple: "/img/icon.jpg" },
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    alternateLocale: "en_US",
+    url: "/",
+    siteName: "Shigure Portfolio",
+    title: "Shigure | Software Engineer Portfolio",
+    description:
+      "From an idea to software people can use — selected work across Web, AI, and native development.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shigure | Software Engineer Portfolio",
+    description: "Selected work across Web, AI, and native development.",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={`${inter.variable} ${geistMono.variable}`}>
+    <html lang="ja">
       <body className="bg-zinc-950 font-sans text-zinc-100 antialiased">
         <LanguageProvider>{children}</LanguageProvider>
       </body>

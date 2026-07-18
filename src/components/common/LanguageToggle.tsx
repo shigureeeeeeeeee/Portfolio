@@ -7,6 +7,7 @@ export const LanguageToggle: React.FC = () => {
 
   return (
     <motion.button
+      type="button"
       onClick={toggleLanguage}
       className="flex items-center gap-1 rounded-md border border-white/10 px-3 py-1.5 font-mono text-xs font-semibold text-zinc-400 transition-colors hover:border-accent-400/50 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-400"
       whileTap={{ scale: 0.95 }}

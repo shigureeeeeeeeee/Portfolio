@@ -1,140 +1,60 @@
 import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiFramer,
-  SiNodedotjs,
-  SiPython,
-  SiDjango,
-  SiPostgresql,
-  SiDocker,
+  SiCmake,
+  SiCplusplus,
+  SiFastapi,
   SiGit,
-  SiFigma,
+  SiGradle,
+  SiNextdotjs,
+  SiOpenjdk,
+  SiPython,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+  SiVuedotjs,
 } from "react-icons/si";
 
 export const skillCategories = [
   {
-    name: "frontend",
+    name: "web",
+    description: {
+      ja: "型安全なUI実装から、学習体験を支える状態設計まで。",
+      en: "From type-safe interfaces to state design for learning experiences.",
+    },
     skills: [
-      {
-        name: "React",
-        icon: SiReact,
-        level: 90,
-        description: {
-          ja: "モダンなUIコンポーネントの開発",
-          en: "Development of modern UI components",
-        },
-      },
-      {
-        name: "Next.js",
-        icon: SiNextdotjs,
-        level: 85,
-        description: {
-          ja: "フルスタックWebアプリケーションの構築",
-          en: "Building full-stack web applications",
-        },
-      },
-      {
-        name: "TypeScript",
-        icon: SiTypescript,
-        level: 85,
-        description: {
-          ja: "型安全なコードの実装",
-          en: "Implementation of type-safe code",
-        },
-      },
-      {
-        name: "Tailwind CSS",
-        icon: SiTailwindcss,
-        level: 90,
-        description: {
-          ja: "モダンなUIデザインの実装",
-          en: "Implementation of modern UI designs",
-        },
-      },
-      {
-        name: "Framer Motion",
-        icon: SiFramer,
-        level: 80,
-        description: {
-          ja: "スムーズなアニメーションの実装",
-          en: "Implementation of smooth animations",
-        },
-      },
+      { name: "TypeScript", icon: SiTypescript, evidence: "Portfolio" },
+      { name: "Next.js", icon: SiNextdotjs, evidence: "Portfolio" },
+      { name: "React", icon: SiReact, evidence: "Portfolio" },
+      { name: "Vue 3", icon: SiVuedotjs, evidence: "Graduation Research" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, evidence: "Portfolio" },
     ],
   },
   {
-    name: "backend",
+    name: "backendAi",
+    description: {
+      ja: "API設計と、複数のLLMを扱うフォールバック可能な構成。",
+      en: "API design and resilient integrations across multiple LLM providers.",
+    },
     skills: [
-      {
-        name: "Node.js",
-        icon: SiNodedotjs,
-        level: 80,
-        description: {
-          ja: "サーバーサイドアプリケーションの開発",
-          en: "Development of server-side applications",
-        },
-      },
-      {
-        name: "Python",
-        icon: SiPython,
-        level: 85,
-        description: {
-          ja: "データ処理とバックエンド開発",
-          en: "Data processing and backend development",
-        },
-      },
-      {
-        name: "Django",
-        icon: SiDjango,
-        level: 75,
-        description: {
-          ja: "Webアプリケーションフレームワーク",
-          en: "Web application framework",
-        },
-      },
-      {
-        name: "PostgreSQL",
-        icon: SiPostgresql,
-        level: 80,
-        description: {
-          ja: "リレーショナルデータベース管理",
-          en: "Relational database management",
-        },
-      },
+      { name: "Python", icon: SiPython, evidence: "Graduation Research" },
+      { name: "FastAPI", icon: SiFastapi, evidence: "Graduation Research" },
+      { name: "Gemini API", icon: SiPython, evidence: "Graduation Research" },
+      { name: "Ollama", icon: SiPython, evidence: "Graduation Research" },
     ],
   },
   {
-    name: "tools",
+    name: "nativeGame",
+    description: {
+      ja: "OSのAPIからゲームのワールド生成まで、目的に合わせて低い層にも降りる実装。",
+      en: "Systems work ranging from native OS APIs to game world generation.",
+    },
     skills: [
-      {
-        name: "Docker",
-        icon: SiDocker,
-        level: 75,
-        description: {
-          ja: "コンテナ化とデプロイメント",
-          en: "Containerization and deployment",
-        },
-      },
-      {
-        name: "Git",
-        icon: SiGit,
-        level: 85,
-        description: {
-          ja: "バージョン管理とチーム開発",
-          en: "Version control and team development",
-        },
-      },
-      {
-        name: "Figma",
-        icon: SiFigma,
-        level: 80,
-        description: {
-          ja: "UIデザインとプロトタイピング",
-          en: "UI design and prototyping",
-        },
-      },
+      { name: "C++17", icon: SiCplusplus, evidence: "Windows Tools" },
+      { name: "Win32 API", icon: SiCplusplus, evidence: "Windows Tools" },
+      { name: "Java 17", icon: SiOpenjdk, evidence: "Abyss World" },
+      { name: "Minecraft Forge", icon: SiOpenjdk, evidence: "Abyss World" },
+      { name: "CMake", icon: SiCmake, evidence: "Windows Tools" },
+      { name: "Gradle", icon: SiGradle, evidence: "Abyss World" },
+      { name: "Git", icon: SiGit, evidence: "All projects" },
     ],
   },
-];
+] as const;
