@@ -114,7 +114,7 @@ export const translations: Record<Language, Translation> = {
       title: "about",
       heading: "課題を理解し、最後まで実装する",
       lead:
-        "公立はこだて未来大学で情報システムを学びながら、Web、AI、Windowsネイティブ、ゲームModまで幅広く開発しています。",
+        "Web、AI、Windowsネイティブ、ゲームModまで幅広く開発しています。",
       paragraphs: [
         "卒業研究では、プログラミング学習者の省察を促すAI対話システムを設計。Vue 3とFastAPIで学習画面、シミュレーション、複数LLMを扱うAPIを実装しています。",
         "技術そのものよりも、利用者が迷わず使えることと、後から改善できる構造を大切にしています。README、セットアップ手順、責務分離まで含めてプロダクトとして整えます。",
@@ -172,7 +172,7 @@ export const translations: Record<Language, Translation> = {
       title: "skills",
       heading: "作ったものに結びつく技術",
       description:
-        "自己評価のパーセンテージではなく、実際のプロジェクトで使用した技術と、その利用先を掲載しています。",
+        "実際のプロジェクトで使用した技術と、その利用先を掲載しています。",
       evidenceLabel: "使用実績",
       categories: {
         web: "Web / Frontend",
