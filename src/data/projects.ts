@@ -21,7 +21,6 @@ export interface Project {
   role: LocalizedText;
   period: string;
   featured?: boolean;
-  visual: "research" | "abyss" | "audio";
 }
 
 /**
@@ -65,7 +64,6 @@ export const projects: Project[] = [
     role: { ja: "企画・設計・実装", en: "Concept, design & development" },
     period: "2025–2026",
     featured: true,
-    visual: "research",
   },
   {
     id: "abyss-world",
@@ -98,7 +96,6 @@ export const projects: Project[] = [
     role: { ja: "ゲーム設計・実装", en: "Game design & development" },
     period: "2026",
     featured: true,
-    visual: "abyss",
   },
   {
     id: "audio-switcher",
@@ -131,6 +128,5 @@ export const projects: Project[] = [
     role: { ja: "設計・実装", en: "Design & development" },
     period: "2026",
     featured: true,
-    visual: "audio",
   },
 ];
